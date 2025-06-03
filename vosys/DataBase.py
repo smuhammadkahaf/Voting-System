@@ -40,23 +40,6 @@ class Database:
             self.connection.close()
 
 
-
-
-'''
-db  = Database()
-if db.verify_admin("user034", "LetmeIn") == 0:
-    print("no record found")
-elif db.verify_admin("user034", "LetmeIn") == -1:
-    print("Multiple users with id passwords")
-elif db.verify_admin("user034", "LetmeIn") == 1:
-    print("access granted")
-elif db.verify_admin("user034", "LetmeIn") == -2:
-    print("other cases")
-else:
-    print("what is this....")
-'''
-
-
 '''
 [
     "all";[{},{}]

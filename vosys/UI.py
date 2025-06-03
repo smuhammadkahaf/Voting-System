@@ -48,15 +48,7 @@ class LoginUI:
         self.password_entry.grid(row=3, column=0, pady=(0, 15))
 
         # Login Button - larger font and width, aligned right
-        login_button = tk.Button(
-            center_frame,
-            text="Login",
-            font=("Arial", 16),
-            bg="#444",
-            fg="white",
-            width=15,
-            command=self.login_clicked
-        )
+        login_button = Common.new_button(center_frame,"Login",self.login_clicked)
         login_button.grid(row=4, column=0, sticky="e", pady=10)
 
     def login_clicked(self):

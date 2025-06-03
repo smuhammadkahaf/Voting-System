@@ -12,11 +12,13 @@ class Common:
         )
 
     @staticmethod
-    def new_label_fg(frame_, text_, font_,fg_):
-        return tk.Label(
+    def new_button(frame_,text_,command_):
+        return tk.Button(
             frame_,
             text=text_,
-            font=("Arial", font_, "bold"),  # increased font size
-            fg=fg_,
-            bg="#252525"
+            font=("Arial", 16),
+            bg="#444",
+            fg="white",
+            width=15,
+            command=command_
         )
