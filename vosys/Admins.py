@@ -33,10 +33,10 @@ class Admin(BaseClass):
             return 1
         else:
             return 0
-
-user = Admin("user034","LetmeIn")
+'''
+user = Admin("user0314","LetmeIn")
 print(user.validate_admin())
-
+'''
 '''       
 Model
 Admin
