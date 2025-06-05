@@ -1,6 +1,7 @@
 import tkinter as tk
 from Common import Common
 from Admins import Admin
+from AdminPanelUI import  AdminPanelUI
 
 class LoginUI:
     def __init__(self, root):
@@ -60,6 +61,10 @@ class LoginUI:
         else:
             user = Admin(username,password)
             if user.validate_admin()==1:
-                self.warning_label.config(text="Access Granted",fg="green")
+                #self.warning_label.config(text="Access Granted", fg="green")
+                self.root.destroy()
+                root = tk.Tk()
+                AdminPanelUI(root)
+
             else:
                 self.warning_label.config(text="Incorrect username or password",fg="red")

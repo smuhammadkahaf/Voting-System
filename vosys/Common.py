@@ -11,7 +11,6 @@ class Common:
             fg="white",
             bg="#252525"
         )
-
     @staticmethod
     def new_button(frame_,text_,command_):
         return tk.Button(
