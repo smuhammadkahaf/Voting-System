@@ -7,3 +7,6 @@ class BaseClass:
     def ensure_db(self):
         if not self.db:
             self.db = Database()
+
+
+
