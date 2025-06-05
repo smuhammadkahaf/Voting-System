@@ -101,3 +101,7 @@ select * from admins
 where
 username ="user034" and 
 password = "LetmeIn";
+DELETE FROM admins WHERE username = "user034";
+
+select * from admins where username  = "user034";
+select * from admins;

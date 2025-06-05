@@ -1,4 +1,5 @@
 import tkinter as tk
+from RSA import RSA
 
 class Common:
     @staticmethod
@@ -22,3 +23,16 @@ class Common:
             width=15,
             command=command_
         )
+    @staticmethod
+    def locker(msg):
+        locker = RSA()
+        locker.set_msg(msg)
+        locker.encrypt_msg()
+        return locker.get_msg()
+
+    @staticmethod
+    def unlocker(msg):
+        unlocker = RSA()
+        unlocker.set_msg(msg)
+        unlocker.decrypt_msg()
+        return unlocker.get_msg()

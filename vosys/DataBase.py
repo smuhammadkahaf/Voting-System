@@ -1,9 +1,6 @@
 import mysql.connector
-from RSA import RSA
-
 class Database:
     def __init__(self,h="localhost",u = "root",p="root",d="vosys",c="utf8mb4"):
-        self.rsa =RSA()
         self.connection = ""
         self.cursor =""
         self.host =h
