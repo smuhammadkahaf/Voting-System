@@ -5,19 +5,13 @@ from Common import Common
 class Admin(BaseClass):
     user = None
 
-    def __init__(self,users,pass_word):
+    def __init__(self):
         super().__init__()
-        self.username = Common.locker(users)
-        self.password = Common.locker(pass_word)
         self.ensure_db()
 
-    def edit_details (self,users,pass_word):
-        #encrypting username
-        self.username = Common.locker(users)
-        self.password = Common.locker(pass_word)
 
-    def validate_admin(self):
-        query = "select * from admins where username = '"+ self.username +"' and password = '"+ self.password+"';"
+    def validate_admin(self,username,password):
+        query = "select * from admins where username = '"+ username +"' and password = '"+ password+"';"
         result = self.db.query(query)
         Admin.user = result['first_row'][0] if result['first_row'] is not None else None
 
@@ -26,22 +20,29 @@ class Admin(BaseClass):
         else:
             return False
 
-    def create_admin(self,name,username,password):
+    def create_admin(self,name,username,password,status_):
         name = Common.locker(name)
         username = Common.locker(username)
         password = Common.locker(password)
+        status =status_
 
         query= "SELECT * FROM admins WHERE username = '"+username+"';"
         result = self.db.query(query)
         if result["count_row"] ==1:
             return 0# username already exist
         else:
-            query = "INSERT INTO admins(name,username,password) VALUES ('"+name+"','"+username+"','"+password+"');"
-            self.db.insert(query)
+            table_name = "admins"
+            data = {
+                "Name": name,
+                "username":username,
+                "password": password,
+                "status": status
+            }
+            self.db.insert(table_name,data)
             return 1# username created
 
     def get_all_admins(self):
-        query = "SELECT * FROM admins;"
+        query = "SELECT admin_id,Name,username,status FROM admins;"
         result = self.db.query(query)
         return result["all_rows"]
 

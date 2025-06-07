@@ -59,8 +59,9 @@ class LoginUI:
         if not username or not password:
             self.warning_label.config(text="All fields are required",fg = "red")
         else:
-            admin_user=Admin(username,password)
-            is_validate = admin_user.validate_admin()
+            admin_user=Admin()
+
+            is_validate = admin_user.validate_admin(Common.locker(username),Common.locker(password))
             if is_validate and Admin.user['status'] == "Active":
                 self.root.destroy()
                 root = tk.Tk()
