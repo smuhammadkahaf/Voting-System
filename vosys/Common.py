@@ -2,6 +2,9 @@ import tkinter as tk
 from RSA import RSA
 
 class Common:
+    #variables
+
+    #functions
     @staticmethod
     def new_label(frame_ , text_, font_):
         return tk.Label(

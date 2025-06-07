@@ -59,12 +59,14 @@ class LoginUI:
         if not username or not password:
             self.warning_label.config(text="All fields are required",fg = "red")
         else:
-            user = Admin(username,password)
-            if user.validate_admin()==1:
-                #self.warning_label.config(text="Access Granted", fg="green")
+            admin_user=Admin(username,password)
+            is_validate = admin_user.validate_admin()
+            if is_validate and Admin.user['status'] == "Active":
                 self.root.destroy()
                 root = tk.Tk()
                 AdminPanelUI(root)
+            elif is_validate:
+                self.warning_label.config(text="You Are an Inactive Admin", fg="blue")
 
             else:
                 self.warning_label.config(text="Incorrect username or password",fg="red")
