@@ -1,5 +1,5 @@
 import tkinter as tk
-from RSA import RSA
+from Logic.RSA import RSA
 import math
 class Common:
     #variables

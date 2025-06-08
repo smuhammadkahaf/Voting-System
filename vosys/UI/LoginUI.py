@@ -1,7 +1,7 @@
 import tkinter as tk
 from Common import Common
-from Admins import Admin
-from AdminPanelUI import  AdminPanelUI
+from Logic.Admins import Admin
+from UI.Admin.AdminPanelUI import  AdminPanelUI
 
 class LoginUI:
     def __init__(self, root):

@@ -1,9 +1,8 @@
 import tkinter as tk
-from LoginUI import LoginUI
-from AdminPanelUI import AdminPanelUI
+from UI.LoginUI import LoginUI
 
 window = tk.Tk()
-# app = LoginUI(window)
-app = AdminPanelUI(window)
+app = LoginUI(window)
+# app = AdminPanelUI(window)
 window.mainloop()
 

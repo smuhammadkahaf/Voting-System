@@ -1,6 +1,4 @@
-from xml.dom.minidom import Comment
-
-from BaseClass import BaseClass
+from Logic.BaseClass import BaseClass
 from Common import Common
 class Admin(BaseClass):
     user = None
