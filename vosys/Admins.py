@@ -57,24 +57,3 @@ class Admin(BaseClass):
 
 
 
-
-'''       
-Model
-Admin
-
-view
-logging
-    email
-    password
-    btn
-form
-
-EndUser
-vote cast
-
-Controller
-Admin
-    login_view
-    login
-
-'''
