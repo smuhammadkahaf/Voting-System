@@ -101,7 +101,21 @@ select * from admins
 where
 username ="user034" and 
 password = "LetmeIn";
-DELETE FROM admins WHERE username = "user034";
+DELETE FROM admins WHERE admin_id = "5";
 
 select * from admins where username  = "user034";
 select * from admins;
+
+update admins 
+set status = "Active"
+where admin_id =4;
+
+INSERT INTO admins (name,username , password , admin_id) VALUES ( 'kahaf' ,'kahaf',  '123' ,  '1');
+
+-- section 3
+ALTER TABLE users RENAME COLUMN user_id TO id;
+ALTER TABLE categories RENAME COLUMN category_id TO id;
+ALTER TABLE Elections RENAME COLUMN election_id TO id;
+ALTER TABLE Election_candidates RENAME COLUMN Candidate_id TO id;
+ALTER TABLE votes RENAME COLUMN vote_id TO id;
+

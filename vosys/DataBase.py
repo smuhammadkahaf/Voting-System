@@ -62,6 +62,21 @@ class Database:
         self.cursor.execute(query)
         self.connection.commit()
 
+    def update(self,table_name,data,condition):
+        query = "UPDATE "+ table_name+ " SET "
+        data_keys = list(data.keys())
+        data_values= list(data.values())
+        for i in range(len(data_keys)):
+            query = query + data_keys[i] +" = '" + data_values[i] + "' "
+            if i <len(data_values)-1:
+                query +=" , "
+        query = query + "WHERE " + condition +";"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+
+
+
 
     def close_all(self):
             self.cursor.close()

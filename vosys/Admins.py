@@ -42,9 +42,17 @@ class Admin(BaseClass):
             return 1# username created
 
     def get_all_admins(self):
-        query = "SELECT admin_id,Name,username,status FROM admins;"
+        query = "SELECT id,Name,username,status FROM admins;"
         result = self.db.query(query)
         return result["all_rows"]
+
+    def get_admin(self,id_):
+        query = "SELECT Name,username,password FROM admins WHERE id = " + str(id_) + ";"
+        result = self.db.query(query)
+        return result["first_row"][0]
+    def update_admin(self,data,condition):
+        self.db.update("admins",data,condition)
+
 
 
 
