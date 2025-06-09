@@ -1,6 +1,6 @@
 import tkinter as tk
 from Includes.Common import Common
-from Logic.Admin.Admins import Admin
+from UI.Admin.PersonTab.CreatePersonFrame import CreatePersonFrame
 
 class PersonFrame(tk.Frame):
     def __init__(self, parent):
@@ -16,4 +16,4 @@ class PersonFrame(tk.Frame):
 
     def new_person_clicked(self):
         Common.clear_content(self.parent)
-        
+        CreatePersonFrame(self.parent)

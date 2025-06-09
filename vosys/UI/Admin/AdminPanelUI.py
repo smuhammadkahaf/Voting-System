@@ -4,6 +4,7 @@ from UI.Admin.AdminTab.AdminFrame import AdminFrame
 from UI.Admin.CategoryTab.CategoryFrame import CategoryFrame
 from UI.Admin.PersonTab.PersonFrame import PersonFrame
 
+
 class AdminPanelUI:
     def __init__(self, root):
         self.root = root
@@ -30,6 +31,7 @@ class AdminPanelUI:
         self.add_sidebar_button("Candidate", self.show_add_candidates)
         self.add_sidebar_button("Add Elections", self.show_add_elections)
         self.add_sidebar_button("Category", self.show_categories)
+        self.add_sidebar_button("Logout", self.logout_clicked)
 
         self.show_dashboard()
 
@@ -61,6 +63,12 @@ class AdminPanelUI:
         Common.clear_content(self.content)
         CategoryFrame(self.content).pack(expand=True, fill="both")
 
+    def logout_clicked(self):
+        Common.clear_content(self.root)
+        from UI.LoginUI import LoginUI
+        LoginUI(self.root)
+
+
 
 # Individual Frames
 class DashboardFrame(tk.Frame):
@@ -81,3 +89,12 @@ class AddElectionsFrame(tk.Frame):
         super().__init__(parent, bg="#252525")
         tk.Label(self, text="Add Elections", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
 #category button frame logic is written bellow
+
+
+'''
+eager loader and easy loader
+'''
+
+
+
+

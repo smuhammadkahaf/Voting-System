@@ -63,9 +63,9 @@ class LoginUI:
 
             is_validate = admin_user.validate_admin(Common.locker(username),Common.locker(password))
             if is_validate and Admin.user['status'] == "Active":
-                self.root.destroy()
-                root = tk.Tk()
-                AdminPanelUI(root)
+
+                Common.clear_content(self.root)
+                AdminPanelUI(self.root)
             elif is_validate:
                 self.warning_label.config(text="You Are an Inactive Admin", fg="blue")
 

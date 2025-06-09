@@ -104,7 +104,7 @@ password = "LetmeIn";
 DELETE FROM admins WHERE admin_id = "5";
 
 select * from admins where username  = "user034";
-select * from admins;
+select * from admins ;
 
 update admins 
 set status = "Active"
@@ -122,3 +122,9 @@ ALTER TABLE Candidate_votes RENAME COLUMN Candidate_vote_id TO id;
 ALTER TABLE admins RENAME COLUMN admin_id TO id;
 
 select * from categories;
+DELETE FROM categories;
+
+-- section 4
+select * from users;
+ALTER TABLE users ADD CONSTRAINT unique_cnic UNIQUE (cnic);
+ALTER TABLE users ADD UNIQUE(cnic);
