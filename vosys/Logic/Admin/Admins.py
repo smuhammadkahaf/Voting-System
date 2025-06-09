@@ -1,8 +1,8 @@
-from Logic.BaseClass import BaseClass
-from Common import Common
-class Admin(BaseClass):
-    user = None
+from Includes.BaseClass import BaseClass
+from Includes.Common import Common
 
+class Admin(BaseClass):
+    user = None #This is an Static Variable
     def __init__(self):
         super().__init__()
         self.ensure_db()
@@ -26,7 +26,7 @@ class Admin(BaseClass):
 
         query= "SELECT * FROM admins WHERE username = '"+username+"';"
         result = self.db.query(query)
-        if result["count_row"] ==1:
+        if result["count_row"] >=1:
             return 0# username already exist
         else:
             table_name = "admins"
@@ -40,12 +40,12 @@ class Admin(BaseClass):
             return 1# username created
 
     def get_all_admins(self):
-        query = "SELECT id,Name,username,status FROM admins;"
+        query = "SELECT id,Name,username,status FROM admins ORDER BY id DESC;"
         result = self.db.query(query)
         return result["all_rows"]
 
     def get_admin(self,id_):
-        query = "SELECT Name,username,password FROM admins WHERE id = " + str(id_) + ";"
+        query = "SELECT Name,username,password FROM admins WHERE id = " + str(id_) + " ;"
         result = self.db.query(query)
         return result["first_row"][0]
     def update_admin(self,data,condition):

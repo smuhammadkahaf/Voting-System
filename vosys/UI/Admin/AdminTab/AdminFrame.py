@@ -1,8 +1,8 @@
 import tkinter as tk
-from Common import Common
-from Logic.Admins import Admin
-from UI.Admin.CreateAdminFrame import CreateAdminFrame
-from UI.Admin.updateAdminFrame import updateAdminFrame
+from Includes.Common import Common
+from Logic.Admin.Admins import Admin
+from UI.Admin.AdminTab.CreateAdminFrame import CreateAdminFrame
+from UI.Admin.AdminTab.updateAdminFrame import updateAdminFrame
 
 class AdminFrame(tk.Frame):
     def __init__(self, parent):

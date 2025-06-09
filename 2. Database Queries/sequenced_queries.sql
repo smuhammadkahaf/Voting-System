@@ -118,4 +118,7 @@ ALTER TABLE categories RENAME COLUMN category_id TO id;
 ALTER TABLE Elections RENAME COLUMN election_id TO id;
 ALTER TABLE Election_candidates RENAME COLUMN Candidate_id TO id;
 ALTER TABLE votes RENAME COLUMN vote_id TO id;
+ALTER TABLE Candidate_votes RENAME COLUMN Candidate_vote_id TO id;
+ALTER TABLE admins RENAME COLUMN admin_id TO id;
 
+select * from categories;

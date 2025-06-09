@@ -1,4 +1,4 @@
-from Logic.DataBase import Database
+from Includes.DataBase import Database
 
 class BaseClass:
     def __init__(self):

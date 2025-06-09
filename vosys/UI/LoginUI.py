@@ -1,6 +1,6 @@
 import tkinter as tk
-from Common import Common
-from Logic.Admins import Admin
+from Includes.Common import Common
+from Logic.Admin.Admins import Admin
 from UI.Admin.AdminPanelUI import  AdminPanelUI
 
 class LoginUI:
