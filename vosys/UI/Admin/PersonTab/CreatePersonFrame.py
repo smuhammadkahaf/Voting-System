@@ -22,7 +22,7 @@ class CreatePersonFrame(tk.Frame):
 
         center_frame = tk.Frame(self.parent,bg="#252525")  # Center Frame to hold inputs and button, centered in the window
         center_frame.pack(expand=True)
-
+        #name input
         name_label = Common.new_label(center_frame, "name*", 16)
         name_label.grid(row=0, column=0, sticky="w", pady=(0, 5))
         self.name_entry = tk.Entry(
@@ -32,36 +32,54 @@ class CreatePersonFrame(tk.Frame):
         )
         self.name_entry.grid(row=1, column=0, pady=(0, 15))
 
-        username_label = Common.new_label(center_frame, "CNIC* (no dashes)", 16)
-        username_label.grid(row=2, column=0, sticky="w", pady=(0, 5))
-        self.username_entry = tk.Entry(
+        #CNIC input
+        cnic_label = Common.new_label(center_frame, "CNIC* (no dashes)", 16)
+        cnic_label.grid(row=2, column=0, sticky="w", pady=(0, 5))
+        self.cnic_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=35  # wider input
         )
-        self.username_entry.grid(row=3, column=0, pady=(0, 15))
+        self.cnic_entry.grid(row=3, column=0, pady=(0, 15))
 
-        # Password Label and Entry - larger font and width
-        password_label = Common.new_label(center_frame, "Password*", 16)
-        password_label.grid(row=4, column=0, sticky="w", pady=(0, 5))
-        self.password_entry = tk.Entry(
+        #DOB Input
+        DOB_label = Common.new_label(center_frame, "Date of Birth* (YYYY-MM-DD)", 16)
+        DOB_label.grid(row=4, column=0, sticky="w", pady=(0, 5))
+        self.DOB_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
-            width=35,
-            show="*"
+            width=35
         )
-        self.password_entry.grid(row=5, column=0, pady=(0, 15))
+        self.DOB_entry.grid(row=5, column=0, pady=(0, 15))
+
+        #Phone number
+        phone_label = Common.new_label(center_frame, "Phone Number", 16)
+        phone_label.grid(row=6, column=0, sticky="w", pady=(0, 5))
+        self.phone_entry = tk.Entry(
+            center_frame,
+            font=("Arial", 16),
+            width=35
+        )
+        self.phone_entry.grid(row=7, column=0, pady=(0, 15))
+
+        #Email Input
+        email_label = Common.new_label(center_frame, "Email Address", 16)
+        email_label.grid(row=8, column=0, sticky="w", pady=(0, 5))
+        self.email_entry = tk.Entry(
+            center_frame,
+            font=("Arial", 16),
+            width=35
+        )
+        self.email_entry.grid(row=9, column=0, pady=(0, 15))
+
         radio_frame = tk.Frame(center_frame,bg="#252525")
         radio_frame.grid(row=6, column=0,sticky="w")
-        active_radio_button = Common.new_radio_button(radio_frame,"Active",self.status_var)
-        inactive_radio_button = Common.new_radio_button(radio_frame,"Inactive",self.status_var)
-        active_radio_button.grid(row=0, column=0, pady=(0, 15))
-        inactive_radio_button.grid(row=0, column=1, pady=(0, 15))
+
 
 
         # Login Button - larger font and width, aligned right
         create_admin_button = Common.new_button(center_frame, "Create",self.create_admin_button_clicked)
-        create_admin_button.grid(row=7, column=0, sticky="e", pady=10)
+        create_admin_button.grid(row=10, column=0, sticky="e", pady=10)
 
     def create_admin_button_clicked(self):
         name = self.name_entry.get()
