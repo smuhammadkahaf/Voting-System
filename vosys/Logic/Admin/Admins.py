@@ -36,7 +36,7 @@ class Admin(BaseClass):
                 "password": password,
                 "status": status
             }
-            self.db.insert(table_name,data)
+            self.db.insert_single(table_name,data)
             return 1# username created
 
     def get_all_admins(self):

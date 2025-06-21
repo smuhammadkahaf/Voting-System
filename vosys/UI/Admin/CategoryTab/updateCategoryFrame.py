@@ -16,7 +16,7 @@ class updateCategoryFrame(tk.Frame):
 
     def buildUI(self):
         title = tk.Frame(self.parent, bg="#252525")
-        title.pack(pady=(50, 10))  # slightly space from top
+        title.pack(pady=(100, 10))  # slightly space from top
         title_label = Common.new_label(title, "Edit Category", 30)
         title_label.pack()
 
@@ -53,5 +53,8 @@ class updateCategoryFrame(tk.Frame):
                 "category_name": name,
             }
             condition = "id = " + str(self.id)
-            self.user.update_category(data,condition)
-            self.warning_label.config(text="Updated Successfully", fg="green")
+            result = self.user.update_category(data,condition)
+            if result:
+                self.warning_label.config(text="Updated Successfully", fg="green")
+            else:
+                self.warning_label.config(text="Category Already exist", fg="blue")

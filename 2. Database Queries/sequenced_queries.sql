@@ -125,6 +125,23 @@ select * from categories;
 DELETE FROM categories;
 
 -- section 4
-select * from users;
+select * from users; 
 ALTER TABLE users ADD CONSTRAINT unique_cnic UNIQUE (cnic);
 ALTER TABLE users ADD UNIQUE(cnic);
+alter table users drop column photo_url;
+
+-- section 5
+select * from users;
+select	*from Person_Categories;
+insert into users(name,cnic,date_of_birth)
+values
+("ali",("123"),("2005-06-11"));
+delete from users;
+
+
+
+-- section 6
+SELECT u.id AS id, u.name AS NAME, u.cnic as CNIC, COUNT(pc.category_id) AS number_in_categories
+FROM users u
+LEFT JOIN person_categories pc ON u.id = pc.user_id
+GROUP BY u.id, u.name, u.cnic;

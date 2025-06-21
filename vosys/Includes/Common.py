@@ -59,18 +59,11 @@ class Common:
 
     @staticmethod
     def generate_table(frame_,data,encrypted_fields=[],is_action=False,action=None,action_name=None):
+        #is_action means generate table or not
+        #action means what function do
+        #action name is button name
 
-        canvas = tk.Canvas(frame_,bg="#252525",highlightthickness=0)
-        scrollbar = tk.Scrollbar(frame_,orient="vertical",command=canvas.yview)
-        scrollable_frame = tk.Frame(canvas,bg="#252525")
-
-        scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-
-        canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
+        scrollable_frame = Common.get_scroll_bar(frame_)
 
         row_frame = tk.Frame(scrollable_frame, bg="#252525")
         row_frame.pack(fill="x", pady=2)  # pack vertically stacked rows
@@ -98,3 +91,18 @@ class Common:
                 login_button=tk.Button(row_frame,text=action_name,font=("Arial", 16),bg="#444",fg="white",width=15, command=lambda a=row: action(a['id']))  # action is called on click, not before)
                 login_button.pack(side="left", padx=2, pady=2)
 
+    @staticmethod
+    def get_scroll_bar(frame_):
+
+        canvas = tk.Canvas(frame_, bg="#252525", highlightthickness=0)
+        scrollbar = tk.Scrollbar(frame_, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg="#252525")
+
+        scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        return scrollable_frame

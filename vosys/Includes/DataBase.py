@@ -1,4 +1,4 @@
-from tkinter.constants import INSERT
+from calendar import day_abbr
 
 import mysql.connector
 class Database:
@@ -44,7 +44,7 @@ class Database:
     # def insert(self,q):
     #     self.cursor.execute(q)
     #     self.connection.commit()
-    def insert(self,table_name,data):
+    def insert_single(self,table_name,data):
         query = "INSERT INTO "+table_name+" ("
         keys_list = list(data.keys())
         values_list = list(data.values())
@@ -59,8 +59,38 @@ class Database:
             if i < len(values_list) - 1:
                 query += " , "
         query += ");"
+        print(query)
         self.cursor.execute(query)
         self.connection.commit()
+
+    def insert_multiple(self,table_name,columns,data):
+        if not columns or not data or (len(columns) != len(data)):
+            return ""
+
+        query = "INSERT INTO "+ table_name + "("
+        for i in range(len(columns)):
+            query = query + columns[i]
+            if i!=len(columns)-1:
+                query = query+","
+            else:
+                query = query + ") VALUES "
+
+        for i in range(len(data)):
+            query = query + "("
+            for j in range(len(data[i])):
+                query = query + "'"+ str(data[i][j]) +"'"
+                if j != len(data[i])-1:
+                    query += ","
+                else:
+                    query+= ")"
+
+            if i != len(data)-1:
+                query+=","
+            else:
+                query+=";"
+        self.cursor.execute(query)
+        self.connection.commit()
+
 
     def update(self,table_name,data,condition):
         query = "UPDATE "+ table_name+ " SET "
@@ -74,11 +104,18 @@ class Database:
         self.cursor.execute(query)
         self.connection.commit()
 
-
-
-
+    def delete(self,table_name, condition):
+        query = "DELETE FROM " + table_name + " WHERE " + condition + ";"
+        self.cursor.execute(query)
+        self.connection.commit()
 
     def close_all(self):
             self.cursor.close()
             self.connection.close()
+
+
+'''table_name  = "admins"
+conditions = "id = 3"
+
+Database.delete(table_name,conditions)'''
 
