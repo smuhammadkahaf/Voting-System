@@ -54,9 +54,11 @@ class Person(BaseClass):
         self.remove_person_from_all(person_id)
         table_name = "Person_Categories"
         columns = ["user_id","category_id"]
+        print(columns)
         rows = []
         for i in range(len(category_id)):
             rows.append([person_id,category_id[i]])
+        print(rows)
         self.db.insert_multiple(table_name,columns,rows)
 
     def get_all_persons(self):
@@ -68,3 +70,14 @@ class Person(BaseClass):
         query = "SELECT name,cnic,date_of_birth,phone_number,email FROM users WHERE id = " + str(id_) + " ;"
         result = self.db.query(query)
         return result["first_row"][0]
+
+    def person_in_categories(self,id_):
+        query = "select category_name from categories where id in (select category_id from person_categories where user_id ="  + str(id_) + ");"
+        result = self.db.query(query)
+        result = result["all_rows"]
+        categories = []
+        for category in result:
+            decrypted_category = Common.unlocker(category["category_name"])
+            categories.append(decrypted_category)
+        return categories
+

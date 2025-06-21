@@ -1,6 +1,7 @@
 import tkinter as tk
 from Includes.Common import Common
 from Logic.Admin.Person import  Person
+from Logic.Admin.Category import Category
 
 class updatePersonFrame(tk.Frame):
     def __init__(self, parent,id):
@@ -95,21 +96,49 @@ class updatePersonFrame(tk.Frame):
         self.email_entry.insert(0, self.email)
         self.email_entry.config(state="readonly")
 
+        #adding check boxes
+        options_frame = tk.Frame(center_frame, bg="#252525")
+        options_frame.grid(row=6, column=0, sticky="w")
+
+        category_object = Category()
+        categories = category_object.get_categories_list()  # All categories
+        in_categories = self.user.person_in_categories(self.id)  # Categories person is already registered in
+
+        self.category_vars = {}
+        for category_name in categories:
+            var = tk.BooleanVar(value=category_name in in_categories)
+            checkbox = tk.Checkbutton(
+                options_frame,
+                text=category_name,
+                variable=var,
+                bg="#252525",
+                fg="white",
+                font=("Arial", 14),
+                selectcolor="#444"
+            )
+            checkbox.pack(anchor='w', padx=(60, 0))
+            self.category_vars[category_name] = var
+            update_person_button = Common.new_button(center_frame, "Update", self.update_person_button_clicked)
+            update_person_button.grid(row=7, column=1, sticky="e", padx=(60, 0))
 
 
-    def update_admin_button_clicked(self):
-        name = Common.locker(self.name_entry.get())
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-        status = self.status_var.get()
+    def update_person_button_clicked(self):
+        self.add_person_in_class(self.cnic)
 
-        if not name or not username or not password:
-            self.warning_label.config(text="All fields are required", fg="red")
-        else:
-            data = {
-                "Name": name,
-                "status": status
-            }
-            condition = "id = " + str(self.id)
-            self.user.update_admin(data,condition)
-            self.warning_label.config(text="Status Updated Successfully", fg="green")
+    def add_person_in_class(self,cnic):
+        category_object  = Category()
+        person_object = Person()
+        person_id = person_object.get_person_id(cnic)
+        print(person_id)
+        categories = category_object.get_categories_list()
+        print(categories)
+        add_in = []
+        for category_name in categories:
+            variable = self.category_vars[category_name]
+            checked = variable.get()
+            if checked:
+                add_in.append(category_name)
+        print(add_in)
+        categories_id = category_object.get_categories_id(add_in)
+        print(categories_id)
+        person_object.add_person_in_class(person_id,categories_id)

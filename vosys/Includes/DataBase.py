@@ -64,7 +64,7 @@ class Database:
         self.connection.commit()
 
     def insert_multiple(self,table_name,columns,data):
-        if not columns or not data or (len(columns) != len(data)):
+        if not columns or not data:
             return ""
 
         query = "INSERT INTO "+ table_name + "("
