@@ -1,4 +1,3 @@
-from copyreg import constructor
 
 from Includes.BaseClass import BaseClass
 from Includes.Common import Common
@@ -11,12 +10,13 @@ class Person(BaseClass):
 
 
 
-    def create_person(self, name, cnic, date_of_birth, phone_number, email):
+    def create_person(self, name, cnic, date_of_birth, phone_number, email,key):
         name = Common.locker(name)
         cnic = Common.locker(cnic)
         date_of_birth = date_of_birth # no need to lock the date
         phone_number = Common.locker(phone_number)
         email = Common.locker(email)
+        key = Common.locker(key)
 
         cnic_query= "SELECT * FROM users WHERE cnic = '"+cnic+"';"
         email_query= "SELECT * FROM users WHERE email = '" + email + "';"
@@ -35,7 +35,8 @@ class Person(BaseClass):
                 "cnic":cnic,
                 "date_of_birth": date_of_birth,
                 "phone_number": phone_number,
-                "email": email
+                "email": email,
+                "key_": key
             }
             self.db.insert_single(table_name,data)
             return 2# person created
@@ -67,7 +68,7 @@ class Person(BaseClass):
         return result["all_rows"]
 
     def get_person(self,id_):
-        query = "SELECT name,cnic,date_of_birth,phone_number,email FROM users WHERE id = " + str(id_) + " ;"
+        query = "SELECT name,cnic,date_of_birth,phone_number,email,key_ FROM users WHERE id = " + str(id_) + " ;"
         result = self.db.query(query)
         return result["first_row"][0]
 

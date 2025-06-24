@@ -29,7 +29,7 @@ class AdminPanelUI:
         self.add_sidebar_button("Admin", self.show_add_admin)
         self.add_sidebar_button("Person", self.show_add_person)
         self.add_sidebar_button("Candidate", self.show_add_candidates)
-        self.add_sidebar_button("Add Elections", self.show_add_elections)
+        self.add_sidebar_button("Elections", self.show_elections)
         self.add_sidebar_button("Category", self.show_categories)
         self.add_sidebar_button("Logout", self.logout_clicked)
 
@@ -55,7 +55,7 @@ class AdminPanelUI:
         Common.clear_content(self.content)
         CandidatesFrame(self.content).pack(expand=True, fill="both")
 
-    def show_add_elections(self):
+    def show_elections(self):
         Common.clear_content(self.content)
         AddElectionsFrame(self.content).pack(expand=True, fill="both")
 
@@ -65,8 +65,8 @@ class AdminPanelUI:
 
     def logout_clicked(self):
         Common.clear_content(self.root)
-        from UI.LoginUI import LoginUI
-        LoginUI(self.root)
+        from UI.Voter.EnrtyPoint import EntryPoint
+        EntryPoint(self.root)
 
 
 

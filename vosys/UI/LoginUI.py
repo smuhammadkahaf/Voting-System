@@ -15,9 +15,16 @@ class LoginUI:
     def build_ui(self):
         # i created frame for the titlew
         title = tk.Frame(self.root, bg="#252525")
-        title.pack(pady=(100, 10))  # slightly space from top
-        title_label = Common.new_label(title,"VOSYS",65)
-        title_label.pack()
+        title.pack(fill="x", pady=(50, 10))
+
+        button_frame = tk.Frame(title, bg="#252525")
+        button_frame.pack(fill="x", pady=(0, 10))
+
+        back_button = Common.new_button(button_frame, "Back",self.back_button_clicked)
+        back_button.pack(side="left", padx=20)
+
+        title_label = Common.new_label(title, "VOSYS", 65)
+        title_label.pack(side="top", pady=10)
 
         warning = tk.Frame(self.root, bg="#252525")
         warning.pack()
@@ -71,3 +78,8 @@ class LoginUI:
 
             else:
                 self.warning_label.config(text="Incorrect username or password",fg="red")
+
+    def back_button_clicked(self):
+        from UI.Voter.EnrtyPoint import EntryPoint
+        Common.clear_content(self.root)
+        EntryPoint(self.root)

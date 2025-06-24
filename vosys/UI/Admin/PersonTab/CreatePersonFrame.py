@@ -1,7 +1,8 @@
 import tkinter as tk
+
 from Logic.Admin.Person import Person
 from Logic.Admin.Category import Category
-from unicodedata import category
+from Includes.TOTP import MyTOTP
 
 from Includes.Common import Common
 from Logic.Admin.Person import Person
@@ -25,61 +26,65 @@ class CreatePersonFrame(tk.Frame):
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(15,30))
 
-
         center_frame = Common.get_scroll_bar(self.parent)
+
+        self.qr_frame = tk.Frame(center_frame, bg="#252525")
+        self.qr_frame.grid(row=0, column=0,padx=(0,80) ,pady=(0,30))
+
+
         #name input
         name_label = Common.new_label(center_frame, "name*", 16)
-        name_label.grid(row=0, column=0, sticky="w", pady=(0, 5),padx=(60,0))
+        name_label.grid(row=1, column=0, sticky="w", pady=(0, 5),padx=(60,0))
         self.name_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=25  # wider input
         )
-        self.name_entry.grid(row=1, column=0, pady=(0, 15),padx=(60,0))
+        self.name_entry.grid(row=2, column=0, pady=(0, 15),padx=(60,0))
 
         #CNIC input
         cnic_label = Common.new_label(center_frame, "CNIC* (no dashes)", 16)
-        cnic_label.grid(row=0, column=1, sticky="w", pady=(0, 5),padx=(60,0))
+        cnic_label.grid(row=1, column=1, sticky="w", pady=(0, 5),padx=(60,0))
         self.cnic_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=25  # wider input
         )
-        self.cnic_entry.grid(row=1, column=1, pady=(0, 15),padx=(60,0))
+        self.cnic_entry.grid(row=2, column=1, pady=(0, 15),padx=(60,0))
 
         #DOB Input
         DOB_label = Common.new_label(center_frame, "Date of Birth* (YYYY-MM-DD)", 16)
-        DOB_label.grid(row=2, column=0, sticky="w", pady=(0, 5),padx=(60,0))
+        DOB_label.grid(row=3, column=0, sticky="w", pady=(0, 5),padx=(60,0))
         self.DOB_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=25
         )
-        self.DOB_entry.grid(row=3, column=0, pady=(0, 15),padx=(60,0))
+        self.DOB_entry.grid(row=4, column=0, pady=(0, 15),padx=(60,0))
 
         #Phone number
         phone_label = Common.new_label(center_frame, "Phone Number", 16)
-        phone_label.grid(row=2, column=1, sticky="w", pady=(0, 5),padx=(60,0))
+        phone_label.grid(row=3, column=1, sticky="w", pady=(0, 5),padx=(60,0))
         self.phone_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=25
         )
-        self.phone_entry.grid(row=3, column=1, pady=(0, 15),padx=(60,0))
+        self.phone_entry.grid(row=4, column=1, pady=(0, 15),padx=(60,0))
 
         #Email Input
         email_label = Common.new_label(center_frame, "Email Address", 16)
-        email_label.grid(row=4, column=0, sticky="w", pady=(0, 5),padx=(60,0))
+        email_label.grid(row=5, column=0, sticky="w", pady=(0, 5),padx=(60,0))
         self.email_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
             width=25
         )
-        self.email_entry.grid(row=5, column=0, pady=(0, 15),padx=(60,0))
+        self.email_entry.grid(row=6, column=0, pady=(0, 15),padx=(60,0))
 
         # Dynamic Category Checkboxes
         options_frame = tk.Frame(center_frame, bg="#252525")
-        options_frame.grid(row=6, column=0, sticky="w")
+        options_frame.grid(row=7, column=0, sticky="w")
 
         category_heading = Common.new_label(options_frame,"Available Categories",16)
         category_heading.pack(anchor="w",padx=(60,0))
@@ -105,7 +110,7 @@ class CreatePersonFrame(tk.Frame):
 
         # Login Button - larger font and width, aligned right
         create_person_button = Common.new_button(center_frame, "Create",self.create_person_button_clicked)
-        create_person_button.grid(row=7, column=1, sticky="e",padx=(60,0))
+        create_person_button.grid(row=8, column=1, sticky="e",padx=(60,0))
 
     def create_person_button_clicked(self):
         name = self.name_entry.get()
@@ -125,13 +130,18 @@ class CreatePersonFrame(tk.Frame):
         elif self.is_valid_date_format(date_of_birth) == False:
             self.warning_label.config(text = "Please check date format",fg = "red")
         else:
-            response = self.new_person(name, CNIC, date_of_birth, phone_number, email_address)
+            self.otp = MyTOTP()
+            key = self.otp.setup_new_key(name,self.qr_frame)
+            response = self.new_person(name, CNIC, date_of_birth, phone_number, email_address,key)
+            self.warning_label.config(text = "Person registered successfully",fg="green")
             if response == 0:
                 self.add_person_in_class(CNIC)
 
-    def new_person(self,name, CNIC, date_of_birth, phone_number, email_address):
+
+
+    def new_person(self,name, CNIC, date_of_birth, phone_number, email_address,key):
         person = Person()
-        result = person.create_person(name, CNIC, date_of_birth, phone_number, email_address)
+        result = person.create_person(name, CNIC, date_of_birth, phone_number, email_address,key)
 
         if result == 0:
             self.warning_label.config(text="CNIC already in registered", fg="red")

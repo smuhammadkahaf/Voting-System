@@ -122,7 +122,6 @@ ALTER TABLE Candidate_votes RENAME COLUMN Candidate_vote_id TO id;
 ALTER TABLE admins RENAME COLUMN admin_id TO id;
 
 select * from categories;
-DELETE FROM categories;
 
 -- section 4
 select * from users; 
@@ -132,11 +131,11 @@ alter table users drop column photo_url;
 
 -- section 5
 select * from users;
+delete from users where id = 10;
 select	*from Person_Categories;
 insert into users(name,cnic,date_of_birth)
 values
 ("ali",("123"),("2005-06-11"));
-delete from users;
 
 
 
@@ -145,3 +144,19 @@ SELECT u.id AS id, u.name AS NAME, u.cnic as CNIC, COUNT(pc.category_id) AS numb
 FROM users u
 LEFT JOIN person_categories pc ON u.id = pc.user_id
 GROUP BY u.id, u.name, u.cnic;
+
+select category_name from categories
+where id in ( 
+select category_id from person_categories where user_id = 7);
+
+delete from users;
+ALTER TABLE users ADD COLUMN key_ VARCHAR(32) NOT NULL;
+select * from users;
+
+
+SELECT u.id AS id, u.name AS NAME, u.cnic as CNIC,Group_CONCAT(c.category_name) AS categories
+FROM users u
+LEFT JOIN person_categories pc ON u.id = pc.user_id
+RIGHT JOIN categories c on pc.category_id = c.id
+GROUP BY u.id, u.name, u.cnic;
+-- section 7

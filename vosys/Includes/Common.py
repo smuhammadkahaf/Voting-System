@@ -62,7 +62,8 @@ class Common:
         #is_action means generate table or not
         #action means what function do
         #action name is button name
-
+        if not data:
+            return ""
         scrollable_frame = Common.get_scroll_bar(frame_)
 
         row_frame = tk.Frame(scrollable_frame, bg="#252525")
