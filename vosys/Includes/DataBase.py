@@ -113,6 +113,10 @@ class Database:
             self.cursor.close()
             self.connection.close()
 
+    def get_last_enterd_record(self,table_name):
+        query = "SELECT * FROM " + table_name + " ORDER BY id DESC LIMIT 1;"
+        result = self.query(query)
+        return result["first_row"]
 
 '''table_name  = "admins"
 conditions = "id = 3"

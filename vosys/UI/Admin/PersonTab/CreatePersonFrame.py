@@ -108,7 +108,7 @@ class CreatePersonFrame(tk.Frame):
             self.category_vars[category_name] = var
 
 
-        # Login Button - larger font and width, aligned right
+        # create Button - larger font and width, aligned right
         create_person_button = Common.new_button(center_frame, "Create",self.create_person_button_clicked)
         create_person_button.grid(row=8, column=1, sticky="e",padx=(60,0))
 

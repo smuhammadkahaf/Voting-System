@@ -5,7 +5,7 @@ from UI.Voter.EnrtyPoint import EntryPoint
 
 window = tk.Tk()
 # app = LoginUI(window)
-# app = AdminPanelUI(window)
-app = EntryPoint(window)
+app = AdminPanelUI(window)
+# app = EntryPoint(window)
 window.mainloop()
 

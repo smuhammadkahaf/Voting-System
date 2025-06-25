@@ -3,6 +3,7 @@ from Includes.Common import Common
 from UI.Admin.AdminTab.AdminFrame import AdminFrame
 from UI.Admin.CategoryTab.CategoryFrame import CategoryFrame
 from UI.Admin.PersonTab.PersonFrame import PersonFrame
+from UI.Admin.ElectionTab.ElectionFrame import ElectionFrame
 
 
 class AdminPanelUI:
@@ -57,7 +58,7 @@ class AdminPanelUI:
 
     def show_elections(self):
         Common.clear_content(self.content)
-        AddElectionsFrame(self.content).pack(expand=True, fill="both")
+        ElectionFrame(self.content).pack(expand=True, fill="both")
 
     def show_categories(self):
         Common.clear_content(self.content)
@@ -83,12 +84,6 @@ class CandidatesFrame(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent, bg="#252525")
         tk.Label(self, text="Candidates", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
-
-class AddElectionsFrame(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent, bg="#252525")
-        tk.Label(self, text="Add Elections", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
-#category button frame logic is written bellow
 
 
 '''
