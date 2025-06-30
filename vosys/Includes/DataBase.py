@@ -27,6 +27,7 @@ class Database:
 
 
     def query(self,q):
+        print(q);
         self.cursor.execute(q)
         columns = [desc[0] for desc in self.cursor.description]
         rows = self.cursor.fetchall()
@@ -88,6 +89,7 @@ class Database:
                 query+=","
             else:
                 query+=";"
+        print(query)
         self.cursor.execute(query)
         self.connection.commit()
 
@@ -97,15 +99,18 @@ class Database:
         data_keys = list(data.keys())
         data_values= list(data.values())
         for i in range(len(data_keys)):
-            query = query + data_keys[i] +" = '" + data_values[i] + "' "
+            query = query + data_keys[i] +" = '" + str(data_values[i]) + "' "
             if i <len(data_values)-1:
                 query +=" , "
         query = query + "WHERE " + condition +";"
+        print(query)
         self.cursor.execute(query)
         self.connection.commit()
 
     def delete(self,table_name, condition):
         query = "DELETE FROM " + table_name + " WHERE " + condition + ";"
+        print(query)
+
         self.cursor.execute(query)
         self.connection.commit()
 
@@ -115,6 +120,7 @@ class Database:
 
     def get_last_enterd_record(self,table_name):
         query = "SELECT * FROM " + table_name + " ORDER BY id DESC LIMIT 1;"
+        print(query)
         result = self.query(query)
         return result["first_row"]
 

@@ -29,7 +29,6 @@ class AdminPanelUI:
         self.add_sidebar_button("Dashboard", self.show_dashboard)
         self.add_sidebar_button("Admin", self.show_add_admin)
         self.add_sidebar_button("Person", self.show_add_person)
-        self.add_sidebar_button("Candidate", self.show_add_candidates)
         self.add_sidebar_button("Elections", self.show_elections)
         self.add_sidebar_button("Category", self.show_categories)
         self.add_sidebar_button("Logout", self.logout_clicked)
@@ -52,9 +51,7 @@ class AdminPanelUI:
         Common.clear_content(self.content)
         PersonFrame(self.content).pack(expand=True, fill="both")
 
-    def show_add_candidates(self):
-        Common.clear_content(self.content)
-        CandidatesFrame(self.content).pack(expand=True, fill="both")
+
 
     def show_elections(self):
         Common.clear_content(self.content)
@@ -79,16 +76,6 @@ class DashboardFrame(tk.Frame):
 
 
 
-
-class CandidatesFrame(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent, bg="#252525")
-        tk.Label(self, text="Candidates", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
-
-
-'''
-eager loader and easy loader
-'''
 
 
 

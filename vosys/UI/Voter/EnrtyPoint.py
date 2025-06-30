@@ -56,7 +56,7 @@ class EntryPoint:
         self.otp_entry.grid(row=3, column=0, pady=(0, 15))
 
         validate_button = Common.new_button(self.root, "Authenticate",self.validate_button_clicked)
-        validate_button.pack(side="right", padx=20,pady=30)
+        validate_button.pack( padx=(240,0),pady=(0,110))
 
     def admin_login_clicked(self):
         Common.clear_content(self.root)

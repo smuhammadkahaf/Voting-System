@@ -98,7 +98,6 @@ class CreateElectionFrame(tk.Frame):
         start_date = self.start_date_entry.get()
         end_date = self.end_date_entry.get()
 
-        self.verify_date_format(start_date)
 
         if not title  or not start_date or not end_date:
             self.warning_label.config(text="All fields are mandatory except description",fg="red")
@@ -109,9 +108,15 @@ class CreateElectionFrame(tk.Frame):
             end_date = self.verify_date_format(end_date)
             if start_date == False or end_date ==False:
                 self.warning_label.config(text="Check your Date Time format",fg = "red")
-            else:
-                id =  self.create_election(title,description,start_date,end_date)
-                self.add_election_in_class(id)
+                return
+
+            condition = self.check_greater_time(start_date,end_date)
+            if not condition:
+                self.warning_label.config(text= "End Date can not be before start date",fg="red")
+                return
+
+            id =  self.create_election(title,description,start_date,end_date)
+            self.add_election_in_class(id)
 
 
     def add_election_in_class(self,election_id):
@@ -144,3 +149,6 @@ class CreateElectionFrame(tk.Frame):
             return date_hour
         except ValueError:
             return False
+
+    def check_greater_time(self,start,end):
+        return end>start

@@ -3,7 +3,7 @@ import tkinter as tk
 from Includes.Common import Common
 from UI.Admin.ElectionTab.CreateElectionFrame import CreateElectionFrame
 from Logic.Admin.Elections import Elections
-from UI.Admin.ElectionTab.UpdateElectionFrame import updateElectionFrame
+from UI.Admin.ElectionTab.UpdateElectionFrame import UpdateElectionFrame
 
 class ElectionFrame(tk.Frame):
     def __init__(self, parent):
@@ -26,9 +26,10 @@ class ElectionFrame(tk.Frame):
             ["Title"],
             True,
             lambda id: (
+
                 Common.clear_content(self.parent),
-                updateElectionFrame(self.parent, str(id))
-            ), "Edit")
+                UpdateElectionFrame(self.parent, id)
+            ), "Manage")
 
     def create_election_button_pressed(self):
         Common.clear_content(self.parent)
