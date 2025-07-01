@@ -184,3 +184,12 @@ select category_name from categories where id in (select category_id from Electi
 
 update elections 
 set election_status =0;
+
+-- section 8 
+use vosys;
+SELECT * FROM Election_candidates;
+
+select ec.id , u.name, u.cnic,ec.affiliations from users u
+inner join Election_candidates ec
+on u.id = ec.user_id
+where ec.election_id = 4;

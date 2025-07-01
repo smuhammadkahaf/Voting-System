@@ -40,10 +40,10 @@ class updateCategoryFrame(tk.Frame):
         self.category_name_entry.insert(0, self.name)
 
         # Login Button - larger font and width, aligned right
-        create_admin_button = Common.new_button(center_frame, "Update", self.update_admin_button_clicked)
+        create_admin_button = Common.new_button(center_frame, "Update", self.update_category_button_clicked)
         create_admin_button.grid(row=2, column=0, sticky="e", pady=10)
 
-    def update_admin_button_clicked(self):
+    def update_category_button_clicked(self):
         name = Common.locker(self.category_name_entry.get().upper())
 
         if not name:

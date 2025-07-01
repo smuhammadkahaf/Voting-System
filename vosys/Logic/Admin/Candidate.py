@@ -2,7 +2,7 @@ from Includes.BaseClass import BaseClass
 from Includes.Common import Common
 
 class Candidate(BaseClass):
-    user = None #This is  Static Variable
+
     def __init__(self):
         super().__init__()
         self.ensure_db()
@@ -26,3 +26,14 @@ class Candidate(BaseClass):
 
         }
         self.db.insert_single(table_name, data)
+
+
+    def get_all_candidates(self,election_id):
+        query = "SELECT ec.id, u.name as Name ,u.cnic AS CNIC, ec.affiliations as Affiliations  FROM users u INNER JOIN Election_candidates ec ON u.id = ec.user_id WHERE ec.election_id ="+ str(election_id) + ";"
+        results = self.db.query(query)
+        return results["all_rows"]
+
+    def remove_candidate(self,person_id,election_id):
+        table_name = "Election_candidates"
+        condition = "user_id = " + str(person_id) + " AND election_id = " + str(election_id)
+        self.db.delete(table_name,condition)

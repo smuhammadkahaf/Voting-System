@@ -58,7 +58,7 @@ class Common:
         return unlocker.get_msg()
 
     @staticmethod
-    def generate_table(frame_,data,encrypted_fields=[],is_action=False,action=None,action_name=None):
+    def generate_table(frame_,data,encrypted_fields=[],is_action=False,action=None,action_name=None,field = 'id'):
         #is_action means generate table or not
         #action means what function do
         #action name is button name
@@ -89,7 +89,7 @@ class Common:
                     value = Common.unlocker(value)
                 tk.Label(row_frame, text=value, font=("Arial", 12), fg="black", bg="#ffffff",width=width,height=2).pack(side="left", padx=2, pady=2)
             if is_action:
-                login_button=tk.Button(row_frame,text=action_name,font=("Arial", 16),bg="#444",fg="white",width=10, command=lambda a=row: action(a['id']))  # action is called on click, not before)
+                login_button=tk.Button(row_frame,text=action_name,font=("Arial", 16),bg="#444",fg="white",width=10, command=lambda a=row: action(a[field]))  # action is called on click, not before)
                 login_button.pack(side="left", padx=2, pady=2)
 
     @staticmethod

@@ -15,7 +15,14 @@ class NewCandidate(tk.Frame):
 
     def buildUI(self):
         title = tk.Frame(self.parent, bg="#252525")
-        title.pack(pady=(100, 10))  # slightly space from top
+        title.pack(fill="x",pady=(100, 10))  # slightly space from top
+
+        button_frame = tk.Frame(title, bg="#252525")
+        button_frame.pack(fill="x", pady=(0, 10))
+
+        back_button = Common.new_button(button_frame, "Back", self.back_button_clicked)
+        back_button.pack(side="left", padx=20)
+
         title_label = Common.new_label(title, "New Candidate", 40)
         title_label.pack()
 
@@ -83,3 +90,8 @@ class NewCandidate(tk.Frame):
 
         candidate.add_candidate(person_id,self.election_id,Common.locker(affiliation))
         self.warning_label.config(text="Candidate Registered",fg="green")
+
+    def back_button_clicked(self):
+        from UI.Admin.Candiate.CandidateFrame import CandidateFrame
+        Common.clear_content(self.parent)
+        CandidateFrame(self.parent,self.election_id)
