@@ -160,3 +160,27 @@ LEFT JOIN person_categories pc ON u.id = pc.user_id
 RIGHT JOIN categories c on pc.category_id = c.id
 GROUP BY u.id, u.name, u.cnic;
 -- section 7
+
+select * from elections;
+select * from elections_categories;
+ALTER TABLE elections MODIFY COLUMN election_status INT;
+
+DELETE FROM ELECTIONS;
+
+SELECT 
+    e.id AS id, 
+    e.title AS Title, 
+    e.starting_date AS Start_Date, 
+    e.ending_date AS End_Date, 
+    COUNT(ec.category_id) AS number_in_categories
+FROM elections e
+LEFT JOIN elections_categories ec ON e.id = ec.election_id
+GROUP BY e.id;
+
+SELECT title,description,starting_date,ending_date from elections;
+ALTER TABLE Elections
+MODIFY COLUMN election_status INT NOT NULL DEFAULT 0;
+select category_name from categories where id in (select category_id from Elections_Categories where election_id =5);
+
+update elections 
+set election_status =0;

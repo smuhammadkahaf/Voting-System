@@ -44,7 +44,7 @@ class Person(BaseClass):
     def get_person_id(self,cnic):
         query = "SELECT id FROM users where cnic = '" + Common.locker(cnic) + "';"
         id = self.db.query(query)
-        print(id)
+
         return id["first_row"][0]["id"]
 
     def remove_person_from_all(self,person_id):
@@ -82,3 +82,11 @@ class Person(BaseClass):
             categories.append(decrypted_category)
         return categories
 
+    def verify_person_existence(self, cnic):
+        query = "SELECT id FROM users where cnic = '" + Common.locker(cnic) + "';"
+        result = self.db.query(query)
+        if result["count_row"] == 0:
+            return False
+        else:
+            return True
+        

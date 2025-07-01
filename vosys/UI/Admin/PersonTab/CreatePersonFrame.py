@@ -127,6 +127,10 @@ class CreatePersonFrame(tk.Frame):
         elif (len(CNIC)!=13):
             self.warning_label.config(text="CNIC should not contain more than 13 numbers", fg="red")
 
+        elif not CNIC.isdigit():
+            self.warning_label.config(text= "cnic must be digit")
+            return
+
         elif self.is_valid_date_format(date_of_birth) == False:
             self.warning_label.config(text = "Please check date format",fg = "red")
         else:
