@@ -66,7 +66,13 @@ class CandidateFrame(tk.Frame):
 
 
     def remove_button_clicked(self,cnic):
+        election = Elections()
         person = Person()
+
+        election_status = election.get_election_status(self.election_id)
+        if election_status !=0:
+            self.warning_label.config(text="Election Launched, Cant remove now",fg="red")
+            return
 
         person_id = person.get_person_id(Common.unlocker(cnic))
 

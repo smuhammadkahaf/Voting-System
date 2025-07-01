@@ -166,7 +166,7 @@ class UpdateElectionFrame(tk.Frame):
                 self.warning_label.config(text="Check your Date Time format",fg = "red")
                 return
 
-            condition = self.check_greater_time(start_date,end_date)
+            condition = not self.check_greater_time(start_date,end_date)
             if condition:
                 self.warning_label.config(text= "End Date can not be before start date",fg="red")
                 return
@@ -180,6 +180,8 @@ class UpdateElectionFrame(tk.Frame):
             condition ="id = "+ str(self.id)
             self.election.update_election(data,condition)
             self.add_election_in_class(self.id)
+
+            self.warning_label.config(text ="Updated Successfully...",fg="blue")
 
 
 
