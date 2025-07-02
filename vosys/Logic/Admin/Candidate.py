@@ -1,3 +1,5 @@
+from idlelib.query import Query
+
 from Includes.BaseClass import BaseClass
 from Includes.Common import Common
 
@@ -37,3 +39,10 @@ class Candidate(BaseClass):
         table_name = "Election_candidates"
         condition = "user_id = " + str(person_id) + " AND election_id = " + str(election_id)
         self.db.delete(table_name,condition)
+
+    def get_number_of_candidate(self,election_id):
+        query = "SELECT * FROM Election_candidates where election_id = " + str(election_id) + ";"
+        result = self.db.query(query)
+
+        result = result["count_row"]
+        return result

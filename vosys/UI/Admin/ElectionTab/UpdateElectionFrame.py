@@ -5,6 +5,7 @@ from Logic.Admin.Elections import  Elections
 from Logic.Admin.Category import Category
 from datetime import datetime
 from UI.Admin.Candiate.CandidateFrame import CandidateFrame
+from Logic.Admin.Candidate import Candidate
 
 
 class UpdateElectionFrame(tk.Frame):
@@ -146,6 +147,7 @@ class UpdateElectionFrame(tk.Frame):
 
     def update_election_button_clicked(self):
 
+
         title = self.title_entry.get()
         description = self.description_entry.get("1.0", "end-1c")
         start_date = self.start_date_entry.get()
@@ -215,6 +217,13 @@ class UpdateElectionFrame(tk.Frame):
         self.election.add_election_in_class(self.id,categories_id)
 
     def launch_election_button_clicked(self):
+        candidate = Candidate()
+        count_candidate = candidate.get_number_of_candidate(self.id)
+
+        if count_candidate < 2:
+            self.warning_label.config(text="Election Must have atleast 2 candidates",fg = "red")
+            return
+        
         current_date_time = datetime.now()
         if self.check_greater_time(current_date_time,self.start_date):
             self.warning_label.config(text="You can not start the election before start date & time",fg="red")
