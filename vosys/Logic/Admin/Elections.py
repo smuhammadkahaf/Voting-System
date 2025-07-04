@@ -1,5 +1,6 @@
 from Includes.BaseClass import BaseClass
 from Includes.Common import Common
+import random
 
 class Elections(BaseClass):
 
@@ -20,7 +21,15 @@ class Elections(BaseClass):
             "election_status": "0"
         }
         self.db.insert_single(table_name, data)
-        return self.db.get_last_enterd_record(table_name)
+        id = self.db.get_last_enterd_record(table_name)
+
+        display_id = self.make_id(id)
+        data = {
+            "display_id": display_id
+        }
+        condition = "id = " + str(id)
+        self.update_election(data, condition)
+        return id
 
     def remove_election_from_all(self,election_id):
         condition = "election_id = " +str(election_id)
@@ -36,7 +45,7 @@ class Elections(BaseClass):
         self.db.insert_multiple(table_name,columns,rows)
 
     def get_all_elections(self):
-        query = "SELECT e.id AS id, e.title AS Title, e.starting_date as Start_Date, e.ending_date as End_Date, COUNT(ec.category_id) AS In_categories FROM elections e LEFT JOIN elections_categories ec ON e.id = ec.election_id GROUP BY e.id;"
+        query = "SELECT e.display_id AS id, e.title AS Title, e.starting_date as Start_Date, e.ending_date as End_Date, COUNT(ec.category_id) AS In_categories FROM elections e LEFT JOIN elections_categories ec ON e.id = ec.election_id GROUP BY e.id;"
         result = self.db.query(query)
         return result["all_rows"]
     def get_election(self,id_):
@@ -76,3 +85,24 @@ class Elections(BaseClass):
             return "Ended"
         else:
             return "invalid"
+
+    def make_id(self,id):
+        id = str(id)
+        chars = "abcdefghijklmnopqrstuvwxyz"
+        nums = "0123456789"
+        letters = random.choice(chars) + random.choice(chars) + random.choice(chars)
+
+        result = letters + "-"+id
+        return result
+
+    def get_election_id(self,display_id):
+        query = "SELECT id FROM elections WHERE  display_id = '" + str(display_id) +"' ;"
+        id = self.db.query(query)
+        id = id["first_row"][0]["id"]
+        return id
+
+    def get_display_id(self,id):
+        query = "SELECT display_id FROM elections WHERE  id = '" + str(id) + "' ;"
+        id = self.db.query(query)
+        id = id["first_row"][0]["display_id"]
+        return id

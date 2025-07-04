@@ -10,12 +10,14 @@ from Logic.Admin.Candidate import Candidate
 
 class UpdateElectionFrame(tk.Frame):
     def __init__(self,parent,id):
+        self.election  = Elections()
+
         self.id = id
+        self.id = self.election.get_election_id(id)
 
         super().__init__(parent,bg="#252525")
         self.parent = parent
 
-        self.election  = Elections()
         data = self.election.get_election(self.id)
 
         self.title = Common.unlocker(data["title"])
@@ -223,7 +225,7 @@ class UpdateElectionFrame(tk.Frame):
         if count_candidate < 2:
             self.warning_label.config(text="Election Must have atleast 2 candidates",fg = "red")
             return
-        
+
         current_date_time = datetime.now()
         if self.check_greater_time(current_date_time,self.start_date):
             self.warning_label.config(text="You can not start the election before start date & time",fg="red")

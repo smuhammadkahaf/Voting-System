@@ -51,7 +51,8 @@ class CandidateFrame(tk.Frame):
     def back_button_clicked(self):
         from UI.Admin.ElectionTab.UpdateElectionFrame import UpdateElectionFrame
         Common.clear_content(self.parent)
-        UpdateElectionFrame(self.parent,self.election_id)
+        election = Elections()
+        UpdateElectionFrame(self.parent,election.get_display_id(self.election_id))
 
 
     def add_candidate_button_clicked(self):

@@ -193,3 +193,32 @@ select ec.id , u.name, u.cnic,ec.affiliations from users u
 inner join Election_candidates ec
 on u.id = ec.user_id
 where ec.election_id = 4;
+
+
+SELECT * FROM Election_candidates where election_id = 7;
+
+#section 9
+CREATE USER 'vosys_user'@'192.168.148.52' IDENTIFIED WITH mysql_native_password BY '12345';
+GRANT ALL PRIVILEGES ON vosys.* TO 'vosys_user'@'192.168.148.52';
+FLUSH PRIVILEGES;
+DROP USER 'vosys_user'@'192.168.148.52';
+
+
+SELECT 
+    e.id AS election_id,
+    e.title,
+    e.starting_date,
+    e.ending_date,
+    CASE 
+        WHEN v.user_id IS NOT NULL THEN 'Voted'
+        ELSE 'Not Voted'
+    END AS status
+FROM elections e
+INNER JOIN elections_categories ec ON e.id = ec.election_id
+INNER JOIN person_categories pc ON ec.category_id = pc.category_id
+    AND pc.user_id = 13
+LEFT JOIN votes v ON v.election_id = e.id AND v.user_id = 13
+WHERE e.election_status = 1
+GROUP BY e.id, e.title, e.starting_date, e.ending_date, v.user_id;
+
+# section 10
