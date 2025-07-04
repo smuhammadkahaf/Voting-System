@@ -52,7 +52,10 @@ class CandidateFrame(tk.Frame):
         from UI.Admin.ElectionTab.UpdateElectionFrame import UpdateElectionFrame
         Common.clear_content(self.parent)
         election = Elections()
-        UpdateElectionFrame(self.parent,election.get_display_id(self.election_id))
+        election_id = Common.locker(election.get_display_id(self.election_id))
+        print(election_id)
+
+        UpdateElectionFrame(self.parent,election_id)
 
 
     def add_candidate_button_clicked(self):

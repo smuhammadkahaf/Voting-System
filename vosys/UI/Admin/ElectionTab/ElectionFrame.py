@@ -23,7 +23,7 @@ class ElectionFrame(tk.Frame):
         Common.generate_table(
             self,
             rows,
-            ["Title"],
+            ["Title","id"],
             True,
             lambda id: (
 

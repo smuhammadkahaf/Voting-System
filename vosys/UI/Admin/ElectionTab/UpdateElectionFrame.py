@@ -12,8 +12,9 @@ class UpdateElectionFrame(tk.Frame):
     def __init__(self,parent,id):
         self.election  = Elections()
 
-        self.id = id
+
         self.id = self.election.get_election_id(id)
+        print("election frame recived = ",self.id)
 
         super().__init__(parent,bg="#252525")
         self.parent = parent
@@ -236,7 +237,7 @@ class UpdateElectionFrame(tk.Frame):
             return
 
         if self.election.get_election_status(self.id) != 0:
-            self.warning_label.config(text = "Election can not be relaunch")
+            self.warning_label.config(text = "Election can not be relaunch",fg = "red")
             return
         data = {
             "election_status": str(1)
@@ -272,6 +273,8 @@ class UpdateElectionFrame(tk.Frame):
         self.status_entry.delete(0, tk.END)
         self.status_entry.insert(0, "Paused")
         self.status_entry.config(state="readonly")
+        self.warning_label.config(text = "Election paused...",fg = "green")
+
 
 
 
@@ -298,7 +301,10 @@ class UpdateElectionFrame(tk.Frame):
         self.status_entry.config(state="normal")
         self.status_entry.delete(0, tk.END)
         self.status_entry.insert(0, "Ongoing")
+        self.warning_label.config(text = "Election ended...",fg = "green")
         self.status_entry.config(state="readonly")
+        self.warning_label.config(text = "Election continued...",fg = "green")
+
 
 
     def end_election_button_clicked(self):
@@ -321,8 +327,9 @@ class UpdateElectionFrame(tk.Frame):
 
         self.status_entry.config(state="normal")
         self.status_entry.delete(0, tk.END)
-        self.status_entry.insert(0, "Ongoing")
+        self.status_entry.insert(0, "ended")
         self.status_entry.config(state="readonly")
+        self.warning_label.config(text = "Election ended...",fg = "green")
 
 
     def candidates_button_clicked(self):

@@ -1,3 +1,4 @@
+
 from Includes.BaseClass import BaseClass
 from Includes.Common import Common
 import random
@@ -23,11 +24,11 @@ class Elections(BaseClass):
         self.db.insert_single(table_name, data)
         id = self.db.get_last_enterd_record(table_name)
 
-        display_id = self.make_id(id)
+        display_id = self.make_id(id[0]["id"])
         data = {
-            "display_id": display_id
+            "display_id": Common.locker(display_id)
         }
-        condition = "id = " + str(id)
+        condition = "id = " + str(id[0]["id"])
         self.update_election(data, condition)
         return id
 
@@ -96,6 +97,7 @@ class Elections(BaseClass):
         return result
 
     def get_election_id(self,display_id):
+        # display_id = Common.locker(display_id)
         query = "SELECT id FROM elections WHERE  display_id = '" + str(display_id) +"' ;"
         id = self.db.query(query)
         id = id["first_row"][0]["id"]
@@ -105,4 +107,4 @@ class Elections(BaseClass):
         query = "SELECT display_id FROM elections WHERE  id = '" + str(id) + "' ;"
         id = self.db.query(query)
         id = id["first_row"][0]["display_id"]
-        return id
+        return Common.unlocker(id)
