@@ -108,3 +108,9 @@ class Elections(BaseClass):
         id = self.db.query(query)
         id = id["first_row"][0]["display_id"]
         return Common.unlocker(id)
+
+    def get_title(self,display_id):
+        query = "Select title from elections where display_id = '" + display_id + "' ;"
+        title = self.db.query(query)
+        title = title["first_row"][0]["title"]
+        return Common.unlocker(title)

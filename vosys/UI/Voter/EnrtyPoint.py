@@ -78,7 +78,7 @@ class EntryPoint:
                 response = safe.verify(key,otp)
                 if response:
                     Common.clear_content(self.root)
-                    AvailableElections(self.root)
+                    AvailableElections(self.root,cnic)
 
                 else:
                     self.warning_label.config(text="Invalid OTP", fg="red")

@@ -204,21 +204,36 @@ FLUSH PRIVILEGES;
 DROP USER 'vosys_user'@'192.168.148.52';
 
 
-SELECT 
-    e.id AS election_id,
-    e.title,
-    e.starting_date,
-    e.ending_date,
-    CASE 
-        WHEN v.user_id IS NOT NULL THEN 'Voted'
-        ELSE 'Not Voted'
-    END AS status
-FROM elections e
-INNER JOIN elections_categories ec ON e.id = ec.election_id
-INNER JOIN person_categories pc ON ec.category_id = pc.category_id
-    AND pc.user_id = 13
+SELECT e.display_id AS election_id, e.title, e.starting_date, e.ending_date,CASE WHEN v.user_id IS NOT NULL THEN 'Voted' ELSE 'Not Voted' END AS status FROM elections e
+INNER JOIN elections_categories ec ON e.id = ec.election_id INNER JOIN person_categories pc ON ec.category_id = pc.category_id AND pc.user_id = 13
 LEFT JOIN votes v ON v.election_id = e.id AND v.user_id = 13
 WHERE e.election_status = 1
-GROUP BY e.id, e.title, e.starting_date, e.ending_date, v.user_id;
+GROUP BY e.display_id, e.title, e.starting_date, e.ending_date, v.user_id
+UNION
+
+-- Part 2: Ongoing elections the user has voted in, even if not in the category anymore
+SELECT e.display_id AS id, e.title, e.starting_date, e.ending_date,'Voted' AS status FROM elections e
+INNER JOIN votes v ON e.id = v.election_id AND v.user_id = 13
+WHERE e.election_status = 1;
+
+
+
+
+
+
 
 # section 10
+use vosys;
+ALTER TABLE Elections 
+ADD COLUMN display_id VARCHAR (15) UNIQUE;
+
+delete from elections;
+delete from election_candidates;
+DELETE from elections_categories;
+
+Select * from elections;
+
+SELECT * FROM candidate_votes;
+SELECT * FROM votes;
+
+
