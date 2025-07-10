@@ -7,17 +7,17 @@ from Logic.Admin.Candidate import Candidate
 
 class NewCandidate(tk.Frame):
     def __init__(self,parent,id):
-        super().__init__(parent,bg="#252525")
+        super().__init__(parent,bg="#EAEAEA")
         self.parent = parent
         self.election_id = id
         self.buildUI()
 
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(fill="x",pady=(100, 10))  # slightly space from top
 
-        button_frame = tk.Frame(title, bg="#252525")
+        button_frame = tk.Frame(title, bg="#EAEAEA")
         button_frame.pack(fill="x", pady=(0, 10))
 
         back_button = Common.new_button(button_frame, "Back", self.back_button_clicked)
@@ -26,12 +26,12 @@ class NewCandidate(tk.Frame):
         title_label = Common.new_label(title, "New Candidate", 40)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(15, 0))
 
-        center_frame = tk.Frame(self.parent,bg="#252525")  # Center Frame to hold inputs and button, centered in the window
+        center_frame = tk.Frame(self.parent,bg="#EAEAEA")  # Center Frame to hold inputs and button, centered in the window
         center_frame.pack(expand=True,pady=(0,100))
 
         cnic_label = Common.new_label(center_frame, "CNIC*", 16)

@@ -16,7 +16,7 @@ class UpdateElectionFrame(tk.Frame):
         self.id = self.election.get_election_id(id)
         print("election frame recived = ",self.id)
 
-        super().__init__(parent,bg="#252525")
+        super().__init__(parent,bg="#EAEAEA")
         self.parent = parent
 
         data = self.election.get_election(self.id)
@@ -30,24 +30,24 @@ class UpdateElectionFrame(tk.Frame):
         self.buildUI()
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(50, 0))  # slightly space from top
         title_label = Common.new_label(title, "Update Election", 30)
         title_label.pack()
 
-        button_frame = tk.Frame(self.parent, bg="#252525")
+        button_frame = tk.Frame(self.parent, bg="#EAEAEA")
         button_frame.pack(fill="x", pady=(0, 10))
 
         back_button = Common.new_button(button_frame, "Candidates",self.candidates_button_clicked)
-        back_button.pack(side="right")
+        back_button.pack(side="right",padx=(0,30))
     #
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
     #
         self.warning_label = Common.new_label(warning, "", 16)
-        self.warning_label.pack(pady=(15, 30))
+        self.warning_label.pack(pady=(0, 30))
 
-        control_frame = tk.Frame(self.parent,bg="#252525")
+        control_frame = tk.Frame(self.parent,bg="#EAEAEA")
         control_frame.pack(pady=(0,15))
         launched_button = Common.new_button(control_frame, "Launch Election",self.launch_election_button_clicked)
         launched_button.grid(row=0, column=0,padx=10)
@@ -122,7 +122,7 @@ class UpdateElectionFrame(tk.Frame):
         self.end_date_entry.insert(0, self.end_date)
 
         #adding check boxes
-        options_frame = tk.Frame(center_frame, bg="#252525")
+        options_frame = tk.Frame(center_frame, bg="#EAEAEA")
         options_frame.grid(row=10, column=0, sticky="w",padx=(130,0))
 
         category_object = Category()
@@ -136,10 +136,10 @@ class UpdateElectionFrame(tk.Frame):
                 options_frame,
                 text=category_name,
                 variable=var,
-                bg="#252525",
-                fg="white",
+                bg="#EAEAEA",
+                fg="#2e3e55",
                 font=("Arial", 14),
-                selectcolor="#444"
+                selectcolor="#EAEAEA"
             )
             checkbox.pack(anchor='w', padx=(60, 0))
             self.category_vars[category_name] = var

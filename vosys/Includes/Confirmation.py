@@ -6,7 +6,7 @@ class Confirmation(tk.Toplevel):
         self.result = None
         self.title("Confirmation")
         self.geometry("300x150")
-        self.configure(bg="#252525")
+        self.configure(bg="#EAEAEA")
         self.resizable(False, False)
         self.grab_set()  # Focus lock
 
@@ -26,10 +26,10 @@ class Confirmation(tk.Toplevel):
         self.geometry(f"{width}x{height}+{pos_x}+{pos_y}")
         self.transient(parent)
 
-        label = tk.Label(self, text=message, font=("Arial", 14), fg="white", bg="#252525")
+        label = tk.Label(self, text=message, font=("Arial", 14), fg="white", bg="#EAEAEA")
         label.pack(pady=(30, 10))
 
-        button_frame = tk.Frame(self, bg="#252525")
+        button_frame = tk.Frame(self, bg="#EAEAEA")
         button_frame.pack()
 
         yes_button = tk.Button(button_frame, text="Yes", width=10, command=lambda: self._set_result(1))

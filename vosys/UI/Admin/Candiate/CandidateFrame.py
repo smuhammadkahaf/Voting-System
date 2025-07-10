@@ -11,12 +11,12 @@ class CandidateFrame(tk.Frame):
         self.parent = parent
         self.election_id = e_id
         self.candidate = Candidate()
-        super().__init__(parent, bg="#252525")
+        super().__init__(parent, bg="#EAEAEA")
 
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(fill="x", pady=(50, 10))
 
-        back_button_frame = tk.Frame(title, bg="#252525")
+        back_button_frame = tk.Frame(title, bg="#EAEAEA")
         back_button_frame.pack(fill="x", pady=(0, 10))
 
         title_label = Common.new_label(title, "Candidates", 30)
@@ -25,7 +25,7 @@ class CandidateFrame(tk.Frame):
         back_button = Common.new_button(back_button_frame, "Back",self.back_button_clicked)
         back_button.pack(side="left", padx=20)
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(15, 0))

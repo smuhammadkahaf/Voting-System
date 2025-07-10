@@ -6,16 +6,16 @@ from UI.Admin.CategoryTab.updateCategoryFrame import updateCategoryFrame
 
 class CategoryFrame(tk.Frame):
     def __init__(self, parent):
-        super().__init__(parent, bg="#252525")
+        super().__init__(parent, bg="#EAEAEA")
         self.parent = parent
 
         self.buildUI()
 
     def buildUI(self):
         # Title
-        header = tk.Frame(self, bg="#252525", width=200)
+        header = tk.Frame(self, bg="#EAEAEA", width=200)
         header.pack(pady=20, anchor="n", fill="x")
-        tk.Label(header, text="Categories", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
+        tk.Label(header, text="Categories", font=("Times", 30), fg="#2e3e55", bg="#EAEAEA").pack(pady=20)
         Create_admin_button = Common.new_button(header, "New Category",self.add_category_clicked)
         Create_admin_button.pack(side="right", anchor="e")
 

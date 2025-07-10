@@ -6,9 +6,9 @@ from UI.Voter.AvailableElections import AvailableElections
 
 
 window = tk.Tk()
-# app = LoginUI(window)
-# app = AdminPanelUI(window)
 # app = EntryPoint(window)
-AvailableElections(window,"4150405303331")
+# app = LoginUI(window)
+app = AdminPanelUI(window)
+# AvailableElections(window,"4150405303331")
 window.mainloop()
 

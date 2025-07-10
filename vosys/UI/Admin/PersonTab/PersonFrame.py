@@ -8,14 +8,14 @@ from UI.Admin.PersonTab.UpdatePersonFrame import updatePersonFrame
 class PersonFrame(tk.Frame):
     def __init__(self, parent):
         self.parent = parent
-        super().__init__(parent, bg="#252525")
+        super().__init__(parent, bg="#EAEAEA")
 
         # Title
-        header = tk.Frame(self, bg="#252525", width=200)
+        header = tk.Frame(self, bg="#EAEAEA", width=200)
         header.pack(pady=20,anchor="n",fill="x")
-        tk.Label(header, text="Person Records", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
+        tk.Label(header, text="Person Records", font=("Times", 30), fg="#2e3e55", bg="#EAEAEA").pack(pady=20)
         Create_person_button = Common.new_button(header,"New Person",self.new_person_clicked)
-        Create_person_button.pack(side="right", anchor="e")
+        Create_person_button.pack(side="right", anchor="e",padx=(0,30),pady=(0,10))
 
         #fetching the data
         user = Person()

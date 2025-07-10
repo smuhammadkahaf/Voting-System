@@ -4,7 +4,7 @@ from Logic.Admin.Admins import  Admin
 
 class updateAdminFrame(tk.Frame):
     def __init__(self, parent,id):
-        super().__init__(parent, bg="#252525")
+        super().__init__(parent, bg="#EAEAEA")
         self.id = id
         self.parent = parent
         self.user = Admin()
@@ -17,18 +17,18 @@ class updateAdminFrame(tk.Frame):
         self.buildUI()
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(50, 10))  # slightly space from top
         title_label = Common.new_label(title, "Edit Admin", 30)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(15, 0))
 
         center_frame = tk.Frame(self.parent,
-                                bg="#252525")  # Center Frame to hold inputs and button, centered in the window
+                                bg="#EAEAEA")  # Center Frame to hold inputs and button, centered in the window
         center_frame.pack(expand=True)
 
         name_label = Common.new_label(center_frame, "name*", 16)
@@ -68,7 +68,7 @@ class updateAdminFrame(tk.Frame):
         self.password_entry.insert(0, self.password)
         self.password_entry.config(state="readonly")
 
-        radio_frame = tk.Frame(center_frame, bg="#252525")
+        radio_frame = tk.Frame(center_frame, bg="#EAEAEA")
         radio_frame.grid(row=6, column=0, sticky="w")
         active_radio_button = Common.new_radio_button(radio_frame, "Active", self.status_var)
         inactive_radio_button = Common.new_radio_button(radio_frame, "Inactive", self.status_var)

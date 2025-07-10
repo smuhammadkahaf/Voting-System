@@ -9,18 +9,18 @@ from Logic.Admin.Person import Person
 
 class CreatePersonFrame(tk.Frame):
     def __init__(self,parent):
-        super().__init__(parent,bg="#252525")
+        super().__init__(parent,bg="#EAEAEA")
         self.parent = parent
         self.buildUI()
 
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(50, 0))  # slightly space from top
         title_label = Common.new_label(title, "Create Person", 30)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
 
         self.warning_label = Common.new_label(warning, "", 16)
@@ -28,7 +28,7 @@ class CreatePersonFrame(tk.Frame):
 
         center_frame = Common.get_scroll_bar(self.parent)
 
-        self.qr_frame = tk.Frame(center_frame, bg="#252525")
+        self.qr_frame = tk.Frame(center_frame, bg="#EAEAEA")
         self.qr_frame.grid(row=0, column=0,padx=(0,80) ,pady=(0,30))
 
 
@@ -83,7 +83,7 @@ class CreatePersonFrame(tk.Frame):
         self.email_entry.grid(row=6, column=0, pady=(0, 15),padx=(60,0))
 
         # Dynamic Category Checkboxes
-        options_frame = tk.Frame(center_frame, bg="#252525")
+        options_frame = tk.Frame(center_frame, bg="#EAEAEA")
         options_frame.grid(row=7, column=0, sticky="w")
 
         category_heading = Common.new_label(options_frame,"Available Categories",16)
@@ -99,10 +99,10 @@ class CreatePersonFrame(tk.Frame):
                 options_frame,
                 text=category_name,
                 variable=var,
-                bg="#252525",
-                fg="white",
+                bg="#EAEAEA",
+                fg="#2e3e55",
                 font=("Arial", 14),
-                selectcolor="#444"
+                selectcolor="#EAEAEA"
             )
             checkbox.pack(anchor='w',padx=(60,0))
             self.category_vars[category_name] = var
@@ -110,7 +110,7 @@ class CreatePersonFrame(tk.Frame):
 
         # create Button - larger font and width, aligned right
         create_person_button = Common.new_button(center_frame, "Create",self.create_person_button_clicked)
-        create_person_button.grid(row=8, column=1, sticky="e",padx=(60,0))
+        create_person_button.grid(row=8, column=1, sticky="e",padx=(60,0),pady=(0,30))
 
     def create_person_button_clicked(self):
         name = self.name_entry.get()

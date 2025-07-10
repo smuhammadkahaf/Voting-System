@@ -6,17 +6,17 @@ from Logic.Admin.Elections import Elections
 
 class CreateElectionFrame(tk.Frame):
     def __init__(self,parent):
-        super().__init__(parent,bg="#252525")
+        super().__init__(parent,bg="#EAEAEA")
         self.parent = parent
         self.buildUI()
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(50, 0))  # slightly space from top
         title_label = Common.new_label(title, "Create Election", 30)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
 
         self.warning_label = Common.new_label(warning, "", 16)
@@ -65,7 +65,7 @@ class CreateElectionFrame(tk.Frame):
         current_date_time = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
         self.end_date_entry.insert(0, current_date_time)
 
-        options_frame = tk.Frame(center_frame, bg="#252525")
+        options_frame = tk.Frame(center_frame, bg="#EAEAEA")
         options_frame.grid(row=8, column=0, sticky="w", pady=(0, 15), padx=(190, 0))
 
         category_heading = Common.new_label(options_frame, "Available Categories", 16)
@@ -81,16 +81,16 @@ class CreateElectionFrame(tk.Frame):
                 options_frame,
                 text=category_name,
                 variable=var,
-                bg="#252525",
-                fg="white",
+                bg="#EAEAEA",
+                fg="#2e3e55",
                 font=("Arial", 14),
-                selectcolor="#444"
+                selectcolor="#EAEAEA"
             )
             checkbox.pack(anchor='w')
             self.category_vars[category_name] = var
 
         create_election_button = Common.new_button(center_frame, "Create",self.create_election_button_clicked)
-        create_election_button.grid(row=9, column=0, sticky="e",pady=40)
+        create_election_button.grid(row=9, column=0, sticky="e",pady=(0,40))
 
     def create_election_button_clicked(self):
         title = self.title_entry.get()

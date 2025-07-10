@@ -11,15 +11,15 @@ class EntryPoint:
         self.root = root
         self.root.title("Verification ")
         self.root.geometry("1024x600")
-        self.root.configure(bg="#252525")
+        self.root.configure(bg="#EAEAEA")
         self.root.resizable(False, False)
         self.build_ui()
 
     def build_ui(self):
-        title = tk.Frame(self.root, bg="#252525")
+        title = tk.Frame(self.root, bg="#EAEAEA")
         title.pack(fill="x", pady=(50, 10))
 
-        button_frame = tk.Frame(title, bg="#252525")
+        button_frame = tk.Frame(title, bg="#EAEAEA")
         button_frame.pack(fill="x", pady=(0, 10))
 
         login_button = Common.new_button(button_frame, "Admin Login",self.admin_login_clicked)
@@ -28,12 +28,12 @@ class EntryPoint:
         title_label = Common.new_label(title, "VOSYS", 65)
         title_label.pack(side="top", pady=10)
 
-        warning = tk.Frame(self.root, bg="#252525")
+        warning = tk.Frame(self.root, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(10,0))
 
-        center_frame = tk.Frame(self.root, bg="#252525")  # Center Frame to hold inputs and button, centered in the window
+        center_frame = tk.Frame(self.root, bg="#EAEAEA")  # Center Frame to hold inputs and button, centered in the window
         center_frame.pack(expand=True)
 
         cnic_label = Common.new_label(center_frame, "CNIC*", 16)
@@ -41,7 +41,10 @@ class EntryPoint:
         self.cnic_entry = tk.Entry(
             center_frame,
             font=("Arial", 16),
-            width=35  # wider input
+            width=35,# wider input
+            highlightthickness=1,
+            highlightbackground="#cccccc",
+            bg="#dddddd"
         )
         self.cnic_entry.grid(row=1, column=0, pady=(0, 15))
 
@@ -51,7 +54,10 @@ class EntryPoint:
             center_frame,
             font=("Arial", 16),
             width=35,
-            show="*"
+            show="*",
+            highlightthickness=1,
+            highlightbackground="#cccccc",
+            bg="#dddddd"
         )
         self.otp_entry.grid(row=3, column=0, pady=(0, 15))
 

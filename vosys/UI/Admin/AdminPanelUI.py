@@ -11,53 +11,65 @@ class AdminPanelUI:
         self.root = root
         self.root.title("Admin Panel")
         self.root.geometry("1024x600")
-        self.root.configure(bg="#252525")
+        self.root.configure(bg="#EAEAEA")
         self.root.resizable(False, False)
 
         self.build_ui()
 
     def build_ui(self):
         # Left Sidebar
-        self.sidebar = tk.Frame(self.root, bg="#333333", width=200)
+        self.sidebar = tk.Frame(self.root, bg="#395472", width=200)
         self.sidebar.pack(side="left", fill="y")
 
         # Main Content Area
-        self.content = tk.Frame(self.root, bg="#252525")
+        self.content = tk.Frame(self.root, bg="#EAEAEA")
         self.content.pack(side="right", expand=True, fill="both")
 
         # Buttons
-        self.add_sidebar_button("Dashboard", self.show_dashboard)
-        self.add_sidebar_button("Admin", self.show_add_admin)
-        self.add_sidebar_button("Person", self.show_add_person)
-        self.add_sidebar_button("Elections", self.show_elections)
-        self.add_sidebar_button("Category", self.show_categories)
-        self.add_sidebar_button("Logout", self.logout_clicked)
+        self.dashboard = self.add_sidebar_button("Dashboard", self.show_dashboard)
+        self.admin = self.add_sidebar_button("Admin", self.show_add_admin)
+        self.person = self.add_sidebar_button("Person", self.show_add_person)
+        self.elections = self.add_sidebar_button("Elections", self.show_elections)
+        self.category = self.add_sidebar_button("Category", self.show_categories)
+        self.logout = self.add_sidebar_button("Logout", self.logout_clicked)
 
+        self.dashboard.config(bg = "#3498db")
         self.show_dashboard()
 
     def add_sidebar_button(self, text, command):
-        btn = tk.Button(self.sidebar, text=text, bg="#444", fg="white", font=("Arial", 14), command=command)
-        btn.pack(fill="x", pady=5)
+        btn  = Common.new_tab(self.sidebar,text,command)
+        btn.pack(fill="x")
+        return btn
 
     def show_dashboard(self):
+        self.reset_all_tabs_colors()
+        self.dashboard.config(bg = "#3498db")
         Common.clear_content(self.content)
         DashboardFrame(self.content).pack(expand=True, fill="both")
 
     def show_add_admin(self):
+        self.reset_all_tabs_colors()
+        self.admin.config(bg = "#3498db")
         Common.clear_content(self.content)
         AdminFrame(self.content).pack(expand=True, fill="both")
 
     def show_add_person(self):
+        self.reset_all_tabs_colors()
+        self.person.config(bg = "#3498db")
         Common.clear_content(self.content)
         PersonFrame(self.content).pack(expand=True, fill="both")
 
 
 
     def show_elections(self):
+        self.reset_all_tabs_colors()
+        self.elections.config(bg = "#3498db")
         Common.clear_content(self.content)
         ElectionFrame(self.content).pack(expand=True, fill="both")
 
     def show_categories(self):
+        self.reset_all_tabs_colors()
+        self.category.config(bg = "#3498db")
         Common.clear_content(self.content)
         CategoryFrame(self.content).pack(expand=True, fill="both")
 
@@ -67,15 +79,18 @@ class AdminPanelUI:
         EntryPoint(self.root)
 
 
+    def reset_all_tabs_colors(self):
+        self.dashboard.config(bg="#395472")
+        self.admin.config(bg="#395472")
+        self.person.config(bg="#395472")
+        self.elections.config(bg="#395472")
+        self.category.config(bg="#395472")
 
 # Individual Frames
 class DashboardFrame(tk.Frame):
     def __init__(self, parent):
-        super().__init__(parent, bg="#252525")
-        tk.Label(self, text="Dashboard", font=("Arial", 24), fg="white", bg="#252525").pack(pady=20)
-
-
-
+        super().__init__(parent, bg="#EAEAEA")
+        tk.Label(self, text="Dashboard", font=("Arial", 24), fg="white", bg="#EAEAEA").pack(pady=20)
 
 
 

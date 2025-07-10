@@ -6,7 +6,7 @@ from Includes.TOTP import MyTOTP
 
 class updatePersonFrame(tk.Frame):
     def __init__(self, parent,id):
-        super().__init__(parent, bg="#252525")
+        super().__init__(parent, bg="#EAEAEA")
         self.id = id
         self.parent = parent
         self.user = Person()
@@ -24,19 +24,19 @@ class updatePersonFrame(tk.Frame):
         self.buildUI()
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(50, 10))  # slightly space from top
         title_label = Common.new_label(title, "Edit Person", 30)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(15, 0))
 
         center_frame = Common.get_scroll_bar(self.parent)
 
-        self.qr_frame = tk.Frame(center_frame, bg="#252525")
+        self.qr_frame = tk.Frame(center_frame, bg="#EAEAEA")
         self.qr_frame.grid(row=0, column=0, padx=(0, 80), pady=(0, 30))
         self.safe.setup_old_key(self.key,self.name,self.qr_frame)
 
@@ -108,7 +108,7 @@ class updatePersonFrame(tk.Frame):
         self.email_entry.config(state="readonly")
 
         #adding check boxes
-        options_frame = tk.Frame(center_frame, bg="#252525")
+        options_frame = tk.Frame(center_frame, bg="#EAEAEA")
         options_frame.grid(row=7, column=0, sticky="w")
 
         category_object = Category()
@@ -122,10 +122,10 @@ class updatePersonFrame(tk.Frame):
                 options_frame,
                 text=category_name,
                 variable=var,
-                bg="#252525",
-                fg="white",
+                bg="#EAEAEA",
+                fg="#2e3e55",
                 font=("Arial", 14),
-                selectcolor="#444"
+                selectcolor="#EAEAEA"
             )
             checkbox.pack(anchor='w', padx=(60, 0))
             self.category_vars[category_name] = var
@@ -135,6 +135,7 @@ class updatePersonFrame(tk.Frame):
 
     def update_person_button_clicked(self):
         self.add_person_in_class(self.cnic)
+        self.warning_label.config(text = "Person Categories Updated Successfully",fg = "green")
 
     def add_person_in_class(self,cnic):
         category_object  = Category()
@@ -164,3 +165,4 @@ class updatePersonFrame(tk.Frame):
         }
         condition = "id = " + str(self.id)
         self.user.db.update("users",data,condition)
+        self.warning_label.config(text="Key Updated Successfully",fg = "green")

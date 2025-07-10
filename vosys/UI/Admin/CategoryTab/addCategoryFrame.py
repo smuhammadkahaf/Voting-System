@@ -6,21 +6,21 @@ from Logic.Admin.Category import Category
 class addCategoryFrame(tk.Frame):
     def __init__(self,parent):
         self.parent = parent
-        super().__init__(parent,bg="#252525")
+        super().__init__(parent,bg="#EAEAEA")
         self.buildUI()
 
     def buildUI(self):
-        title = tk.Frame(self.parent, bg="#252525")
+        title = tk.Frame(self.parent, bg="#EAEAEA")
         title.pack(pady=(100, 10))  # slightly space from top
         title_label = Common.new_label(title, "Create Category", 50)
         title_label.pack()
 
-        warning = tk.Frame(self.parent, bg="#252525")
+        warning = tk.Frame(self.parent, bg="#EAEAEA")
         warning.pack()
         self.warning_label = Common.new_label(warning, "", 16)
         self.warning_label.pack(pady=(30, 0))
 
-        center_frame = tk.Frame(self.parent,bg="#252525")  # Center Frame to hold inputs and button, centered in the window
+        center_frame = tk.Frame(self.parent,bg="#EAEAEA")  # Center Frame to hold inputs and button, centered in the window
         center_frame.pack(expand=True)
 
         category_name_label = Common.new_label(center_frame, "Category Name*", 16)

@@ -3,30 +3,84 @@ from Includes.RSA import RSA
 import math
 from tkinter import  ttk
 class Common:
-    #variables
 
+    """
+    background color         = #EAEAEA
+    Label text color         = #2e3e55
+    button color             = #3498db
+    button Hover color       = #2980b9
+    tab bar color            = #395472
+    tab hover color          = #2c3e50
+    tab selected color       = #3498db
+    """
     #functions
     @staticmethod
     def new_label(frame_ , text_, font_):
         return tk.Label(
             frame_,
             text=text_,
-            font=("Arial", font_, "bold"),  # increased font size
-            fg="white",
-            bg="#252525"
+            font=("Times", font_, "bold"),  # increased font size
+            fg="#2e3e55",
+            bg="#EAEAEA"
         )
     @staticmethod
-    def new_button(frame_,text_,command_=None):
-        return tk.Button(
+    def on_enter_buttons(e):
+        e.widget.config(bg="#2980b9")
+
+    @staticmethod
+    def on_leave_buttons(e):
+        e.widget.config(bg="#3498db")
+
+    @staticmethod
+    def on_enter_tabs(e):
+        current_color = e.widget.cget("bg").lower()
+        if current_color in ("#3498db", "#2980b9"):  # If selected or selected-hover
+            e.widget.config(bg="#2980b9")  # Hover on selected
+        else:
+            e.widget.config(bg="#2c3e50")  # Hover on default
+
+    @staticmethod
+    def on_leave_tabs(e):
+        current_color = e.widget.cget("bg").lower()
+        if current_color in ("#3498db", "#2980b9",):  # Leaving selected-hover
+            e.widget.config(bg="#3498db")  # Back to selected color
+        else:
+            e.widget.config(bg="#395472")  # Back to default
+
+    @staticmethod
+    def new_button(frame_,text_,command_=None,size=16,width =15):
+        btn = tk.Button(
             frame_,
             text=text_,
-            font=("Arial", 16),
-            bg="#444",
+            font=("Times", size),
+            bg="#3498db",
             fg="white",
-            width=15,
-
-            command=command_
+            width=width,
+            command=command_,
+            cursor="hand2"
         )
+        btn.bind("<Enter>", Common.on_enter_buttons)
+        btn.bind("<Leave>", Common.on_leave_buttons)
+        return btn
+
+    @staticmethod
+    def new_tab(frame_,text_,command_=None,size=16,width =9):
+        btn = tk.Button(
+            frame_,
+            text=text_,
+            font=("Times", size),
+            bg="#395472",
+            fg="white",
+            height = 2,
+            width=width,
+            command=command_,
+            cursor="hand2",
+            bd = 0
+        )
+        btn.bind("<Enter>", Common.on_enter_tabs)
+        btn.bind("<Leave>", Common.on_leave_tabs)
+        return btn
+
     @staticmethod
     def new_radio_button(frame,text,variable,):
         return tk.Radiobutton(
@@ -34,11 +88,11 @@ class Common:
         text=text,
         variable=variable,
         value=text,
-        font=("Arial", 14),
-        bg="#252525",
-        fg="white",
-        selectcolor="#252525",  # to blend in background
-        activebackground="#252525"
+        font=("Arial", 14,"bold"),
+        bg="#EAEAEA",
+        fg="#2e3e55",
+        selectcolor="#EAEAEA",  # to blend in background
+        activebackground="#EAEAEA"
         )
     @staticmethod
     def clear_content(frame):
@@ -67,44 +121,45 @@ class Common:
             return ""
         scrollable_frame = Common.get_scroll_bar(frame_)
 
-        row_frame = tk.Frame(scrollable_frame, bg="#252525")
-        row_frame.pack(fill="x", pady=2)  # pack vertically stacked rows
+        row_frame = tk.Frame(scrollable_frame, bg="#EAEAEA")
+        row_frame.pack(fill="x", pady=2,padx=(15,0))  # pack vertically stacked rows
 
         visible_keys = [k for k in data[0].keys() if k not in hide_columns]
         column_count = len(visible_keys) + (1 if is_action else 0)
         width = math.ceil(100 / column_count) - 1
 
         for heading in visible_keys:
-            tk.Label(row_frame, text=heading, font=("Arial", 12), fg="black", bg="#ffffff", width=width).pack(
+            heading = heading.replace("_"," ")
+
+            tk.Label(row_frame, text=heading, font=("Times", 12), fg="black", bg="#ffffff", width=width,bd=2,relief="solid").pack(
                 side="left", padx=2, pady=2)
 
 
         if is_action :
-            tk.Label(row_frame, text="Action", font=("Arial", 12), fg="black", bg="#ffffff", width=width).pack(side="left",padx=2, pady=2)
+            tk.Label(row_frame, text="Action", font=("Times", 12), fg="black",  bg="#ffffff", width=width,bd=2,relief="solid").pack(side="left",padx=2, pady=2)
         #current_row = -1
         for row in data:
             #current_row+=1
             # column_count = len(row)
-            row_frame = tk.Frame(scrollable_frame, bg="#252525")
-            row_frame.pack(fill="x", pady=2)  # pack vertically stacked rows
+            row_frame = tk.Frame(scrollable_frame, bg="#EAEAEA")
+            row_frame.pack(fill="x", pady=2,padx=(15,0))  # pack vertically stacked rows
 
             # current_column = -1
             for key in visible_keys:
                 value = row[key]
                 if key in encrypted_fields:
                     value = Common.unlocker(value)
-                tk.Label(row_frame, text=value, font=("Arial", 12), fg="black", bg="#ffffff", width=width, height=2).pack(side="left", padx=2, pady=2)
+                tk.Label(row_frame, text=value, font=("Times", 12), fg="black", bg="#ffffff", width=width, height=2,bd=2,relief="solid").pack(side="left", padx=2, pady=2)
             if is_action:
-                login_button=tk.Button(row_frame,text=action_name,font=("Arial", 16),bg="#444",fg="white",width=width-8, command=lambda a=row: action(a[field]))  # action is called on click, not before)
+                login_button=Common.new_button(row_frame,text_=action_name, command_=lambda a=row: action(a[field]),size = 16,width=width-8)  # action is called on click, not before)
                 login_button.pack(side="top", padx=2, pady=2)
-
     @staticmethod
     def get_scroll_bar(frame_):
-        canvas = tk.Canvas(frame_, bg="#252525", highlightthickness=0)
-        scrollbar = tk.Scrollbar(frame_, orient="vertical", command=canvas.yview)
+        canvas = tk.Canvas(frame_, bg="#EAEAEA", highlightthickness=0)
+        scrollbar = tk.Scrollbar(frame_, orient="vertical", command=canvas.yview,bg="red")
 
-        outer_frame = tk.Frame(canvas, bg="#252525")  # NEW: wrapper to center contents
-        scrollable_frame = tk.Frame(outer_frame, bg="#252525")  # same as before
+        outer_frame = tk.Frame(canvas, bg="#EAEAEA")  # NEW: wrapper to center contents
+        scrollable_frame = tk.Frame(outer_frame, bg="#EAEAEA")  # same as before
 
         scrollable_frame.pack(anchor="center")  # pack table in center inside wrapper
 
@@ -119,59 +174,28 @@ class Common:
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
+
+        def _on_mousewheel(event):
+            # delta is positive or negative based on scroll direction
+            move = -1 * int(event.delta / 120)
+
+            # Get the current scroll fraction (top and bottom)
+            first, last = canvas.yview()
+
+            # Only scroll if not already at the top or bottom
+            if not (move < 0 and first <= 0) and not (move > 0 and last >= 1):
+                canvas.yview_scroll(move, "units")
+
+        def _bind_mousewheel(event):
+            canvas.bind("<MouseWheel>", _on_mousewheel)
+
+        def _unbind_mousewheel(event):
+            canvas.unbind("<MouseWheel>")
+
+        # Bind when mouse enters/leaves the canvas
+        canvas.bind("<Enter>", _bind_mousewheel)
+        canvas.bind("<Leave>", _unbind_mousewheel)
+
         return scrollable_frame  # return only the actual frame where you place widgets
 
-    @staticmethod
-    def generate_table2(frame_, data, encrypted_fields=[], is_action=False, action=None, action_name=None, field='id'):
-        if not data:
-            return ""
 
-            # Setup scrollable Treeview area
-        container = tk.Frame(frame_, bg="#252525")
-        container.pack(fill="both", expand=True)
-
-        columns = list(data[0].keys())
-        if is_action:
-            columns.append("Action")
-
-        tree = ttk.Treeview(container, columns=columns, show="headings", height=len(data))
-        tree.pack(side="left", fill="both", expand=True)
-
-        # Add scrollbar
-        scrollbar = ttk.Scrollbar(container, orient="vertical", command=tree.yview)
-        scrollbar.pack(side="right", fill="y")
-        tree.configure(yscrollcommand=scrollbar.set)
-
-        # Define column headers
-        for col in columns:
-            tree.heading(col, text=col)
-            tree.column(col, anchor="center", width=120)
-
-        # Insert data rows
-        for row in data:
-            row_data = []
-            for key in data[0].keys():
-                value = row[key]
-                if key in encrypted_fields:
-                    value = Common.unlocker(value)
-                row_data.append(value)
-
-            # For Action column, use placeholder — we'll add buttons manually
-            if is_action:
-                row_data.append("")
-
-            tree.insert("", "end", values=row_data)
-
-        # Attach action buttons after Treeview is rendered
-        if is_action and action:
-            # This is just for interaction, no actual buttons inside Treeview (not supported)
-            def on_select(event):
-                selected = tree.focus()
-                values = tree.item(selected, 'values')
-                if values:
-                    action_value = values[columns.index(field)]
-                    action(action_value)
-
-            tree.bind("<Double-1>", on_select)  # double-click to trigger action
-
-        return tree  # In case you want to manipulate it later
