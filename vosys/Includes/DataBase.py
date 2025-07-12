@@ -28,10 +28,15 @@ class Database:
 
     def query(self,q):
         print(q);
-        self.cursor.execute(q)
-        columns = [desc[0] for desc in self.cursor.description]
-        rows = self.cursor.fetchall()
-        result = [dict(zip(columns, row)) for row in rows]
+        if not self.connection.is_connected():
+            self.connected()  # Reconnect if connection was lost
+
+        with self.connection.cursor() as temp_cursor:  # temporary cursor
+            temp_cursor.execute(q)
+            columns = [desc[0] for desc in temp_cursor.description]
+            rows = temp_cursor.fetchall()
+            result = [dict(zip(columns, row)) for row in rows]
+
         results = {"all_rows" : result,
                    "count_row" : len(result) }
         if result:

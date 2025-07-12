@@ -71,3 +71,10 @@ class Category(BaseClass):
                 category_id.append(row["id"])
             return category_id
 
+
+    def get_number_of_categories(self):
+        query = "select count(*) as categories from categories;"
+        results = self.db.query(query)
+        results = results["first_row"][0]["categories"]
+
+        return results

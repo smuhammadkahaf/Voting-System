@@ -1,4 +1,5 @@
 import tkinter as tk
+from Includes.Common import Common
 
 class Confirmation(tk.Toplevel):
     def __init__(self, parent, message="Are you sure?"):
@@ -26,16 +27,17 @@ class Confirmation(tk.Toplevel):
         self.geometry(f"{width}x{height}+{pos_x}+{pos_y}")
         self.transient(parent)
 
-        label = tk.Label(self, text=message, font=("Arial", 14), fg="white", bg="#EAEAEA")
+        label = tk.Label(self, text=message, font=("Times", 17), fg="#2e3e55", bg="#EAEAEA")
         label.pack(pady=(30, 10))
 
         button_frame = tk.Frame(self, bg="#EAEAEA")
         button_frame.pack()
 
-        yes_button = tk.Button(button_frame, text="Yes", width=10, command=lambda: self._set_result(1))
+        yes_button = Common.new_button(button_frame,"Yes",lambda: (self._set_result(1)),16,10)
+        # yes_button = tk.Button(button_frame, text="Yes", width=10, command=lambda: self._set_result(1))
         yes_button.pack(side="left", padx=10)
 
-        no_button = tk.Button(button_frame, text="No", width=10, command=lambda: self._set_result(0))
+        no_button = Common.new_button(button_frame,"N0",lambda: (self._set_result(1)),16,10)
         no_button.pack(side="left", padx=10)
 
     def _set_result(self, value):

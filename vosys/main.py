@@ -1,9 +1,8 @@
 import tkinter as tk
-from UI.LoginUI import LoginUI
-from UI.Admin.AdminPanelUI import AdminPanelUI
-from UI.Voter.EnrtyPoint import EntryPoint
 from UI.Voter.AvailableElections import AvailableElections
-
+from UI.Admin.AdminPanelUI import  AdminPanelUI
+from UI.Voter.EnrtyPoint import EntryPoint
+from UI.Admin.LoginUI import LoginUI
 
 window = tk.Tk()
 # app = EntryPoint(window)

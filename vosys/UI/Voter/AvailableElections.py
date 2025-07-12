@@ -3,6 +3,7 @@ import tkinter as tk
 from Includes.Common import Common
 from Logic.Voter.Voter import Voter
 from UI.Voter.VoteCast import VoteCast
+from UI.Results import Results
 
 class AvailableElections:
     def __init__(self, root,cnic):
@@ -10,6 +11,7 @@ class AvailableElections:
         self.root = root
         self.cnic = cnic
         self.voter_id = self.voter.get_person_id(self.cnic)
+
 
 
         self.root.title("Available Elections")
@@ -46,15 +48,17 @@ class AvailableElections:
         center_frame.pack(fill="both", expand=True)
 
         rows = self.voter.get_ongoing_elections(self.voter_id)
+        print(rows)
         Common.generate_table(
             center_frame,
             rows,
             ["id", "title"],
             True,
-            lambda id: (
+            lambda election_display_id: (
+
                 Common.clear_content(self.root),
-                VoteCast(self.root,self.voter_id,id)
-            ), "Vote")
+                VoteCast(self.root,self.voter_id,election_display_id,self.cnic)
+            ) if self.voter.check_vote(self.voter_id,election_display_id) else self.warning_label.config(text = "Already Voted",fg ="red"), "Vote")
 
 
 
@@ -64,5 +68,5 @@ class AvailableElections:
         EntryPoint(self.root)
 
     def results_button_clicked(self):
-        pass
-
+        Common.clear_content(self.root)
+        Results(self.root,self.cnic)

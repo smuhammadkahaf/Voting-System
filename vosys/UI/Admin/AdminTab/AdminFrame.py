@@ -7,7 +7,7 @@ from UI.Admin.AdminTab.updateAdminFrame import updateAdminFrame
 class AdminFrame(tk.Frame):
     def __init__(self, parent):
         self.parent = parent
-        super().__init__(parent, bg="#EAEAEA")
+        super().__init__(parent, bg=Common.background_color)
 
         # Title
         header = tk.Frame(self, bg="#EAEAEA", width=200)

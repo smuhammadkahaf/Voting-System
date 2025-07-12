@@ -12,6 +12,7 @@ class LoginUI:
         self.root.resizable(False, False)
         self.build_ui()
 
+
     def build_ui(self):
         # i created frame for the titlew
         title = tk.Frame(self.root, bg="#EAEAEA")
@@ -39,7 +40,7 @@ class LoginUI:
         username_label.grid(row=0, column=0, sticky="w", pady=(0, 5))
         self.username_entry = tk.Entry(
             center_frame,
-            font=("Arial", 16),
+            font=("Times", 16),
             width=35,  # wider input
             highlightthickness=1,
             highlightbackground = "#bbbbbb",
@@ -52,7 +53,7 @@ class LoginUI:
         password_label.grid(row=2, column=0, sticky="w", pady=(0, 5))
         self.password_entry = tk.Entry(
             center_frame,
-            font=("Arial", 16),
+            font=("Times", 16),
             width=35,
             show="*",
             highlightthickness=1,

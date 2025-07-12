@@ -4,6 +4,8 @@ from UI.Admin.AdminTab.AdminFrame import AdminFrame
 from UI.Admin.CategoryTab.CategoryFrame import CategoryFrame
 from UI.Admin.PersonTab.PersonFrame import PersonFrame
 from UI.Admin.ElectionTab.ElectionFrame import ElectionFrame
+from UI.Admin.Dashboard.DashboardFrame import DashboardFrame
+from UI.Results import Results
 
 
 class AdminPanelUI:
@@ -31,6 +33,7 @@ class AdminPanelUI:
         self.person = self.add_sidebar_button("Person", self.show_add_person)
         self.elections = self.add_sidebar_button("Elections", self.show_elections)
         self.category = self.add_sidebar_button("Category", self.show_categories)
+        self.results = self.add_sidebar_button("Results", self.show_results)
         self.logout = self.add_sidebar_button("Logout", self.logout_clicked)
 
         self.dashboard.config(bg = "#3498db")
@@ -73,6 +76,12 @@ class AdminPanelUI:
         Common.clear_content(self.content)
         CategoryFrame(self.content).pack(expand=True, fill="both")
 
+    def show_results(self):
+        self.reset_all_tabs_colors()
+        self.results.config(bg = "#3498db")
+        Common.clear_content(self.content)
+        Results(self.content,send_to="admin").pack(expand=True, fill="both")
+
     def logout_clicked(self):
         Common.clear_content(self.root)
         from UI.Voter.EnrtyPoint import EntryPoint
@@ -85,12 +94,9 @@ class AdminPanelUI:
         self.person.config(bg="#395472")
         self.elections.config(bg="#395472")
         self.category.config(bg="#395472")
+        self.results.config(bg="#395472")
 
-# Individual Frames
-class DashboardFrame(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent, bg="#EAEAEA")
-        tk.Label(self, text="Dashboard", font=("Arial", 24), fg="white", bg="#EAEAEA").pack(pady=20)
+
 
 
 

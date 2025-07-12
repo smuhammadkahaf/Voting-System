@@ -5,8 +5,9 @@ from Logic.Voter.Voter import Voter
 from Logic.Admin.Elections import Elections
 from Includes.Confirmation import Confirmation
 class VoteCast:
-    def __init__(self, root,voter_id,election_display_id,):
+    def __init__(self, root,voter_id,election_display_id,cnic):
         election = Elections()
+        self.cnic = cnic
         self.root =root
         self.voter_id = voter_id
         self.election_display_id = election_display_id
@@ -77,3 +78,6 @@ class VoteCast:
         voter = Voter()
         voter.cast_in_votes(person_id,election_id)
         voter.cast_in_candidate_votes(candidate_id,election_id)
+        from UI.Voter.AvailableElections import AvailableElections
+        Common.clear_content(self.root)
+        AvailableElections(self.root,self.cnic)

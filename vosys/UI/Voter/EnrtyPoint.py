@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from Includes.Common import Common
-from UI.LoginUI import LoginUI
+from UI.Admin.LoginUI import LoginUI
 from Logic.Voter.Voter import Voter
 from Includes.TOTP import MyTOTP
 from UI.Voter.AvailableElections import AvailableElections

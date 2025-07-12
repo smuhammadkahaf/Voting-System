@@ -89,4 +89,11 @@ class Person(BaseClass):
             return False
         else:
             return True
+
+    def get_number_of_persons(self):
+        query = "select count(*) as persons from users;"
+        results = self.db.query(query)
+        results = results["first_row"][0]["persons"]
+
+        return results
         

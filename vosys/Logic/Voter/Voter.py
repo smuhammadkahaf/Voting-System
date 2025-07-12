@@ -1,5 +1,7 @@
 from Includes.BaseClass import BaseClass
 from Includes.Common import Common
+from Logic.Admin.Elections import Elections
+
 
 class Voter(BaseClass):
 
@@ -34,19 +36,37 @@ class Voter(BaseClass):
 
 
     def get_ongoing_elections(self,voter_id):
-        q1 = "SELECT e.display_id AS id, e.title,CASE WHEN v.user_id IS NOT NULL THEN 'Voted' ELSE 'Not Voted' END AS status FROM elections e "
-        q2 = "INNER JOIN elections_categories ec ON e.id = ec.election_id INNER JOIN person_categories pc ON ec.category_id = pc.category_id AND " + str(voter_id) + " "
-        q3 = "LEFT JOIN votes v ON v.election_id = e.id AND " + str(voter_id) + " WHERE e.election_status = 1 "
-        q4 = "GROUP BY e.display_id, e.title, e.starting_date, e.ending_date, v.user_id;"
+        # Elections the user can vote in (based on category)
+        q1 = """
+            SELECT 
+                e.display_id AS id, 
+                e.title, 
+                e.starting_date, 
+                e.ending_date,
+                CASE WHEN v.user_id IS NOT NULL THEN 'Voted' ELSE 'Not Voted' END AS status
+            FROM elections e
+            INNER JOIN elections_categories ec ON e.id = ec.election_id
+            INNER JOIN person_categories pc ON ec.category_id = pc.category_id AND pc.user_id = {voter_id}
+            LEFT JOIN votes v ON v.election_id = e.id AND v.user_id = {voter_id}
+            WHERE e.election_status = 1
+            GROUP BY e.display_id, e.title, e.starting_date, e.ending_date, v.user_id
+            """.format(voter_id=voter_id)
 
-        query1 = q1+q2+q3+q4
+        # Elections the user already voted in, even if not in category anymore
+        q2 = """
+            SELECT 
+                e.display_id AS id, 
+                e.title, 
+                e.starting_date, 
+                e.ending_date,
+                'Voted' AS status
+            FROM elections e
+            INNER JOIN votes v ON e.id = v.election_id AND v.user_id = {voter_id}
+            WHERE e.election_status = 1
+            """.format(voter_id=voter_id)
 
-        q1 = " SELECT e.display_id AS id, e.title, e.starting_date, e.ending_date,'Voted' AS status FROM elections e"
-        q2 = " INNER JOIN votes v ON e.id = v.election_id AND v.user_id = " + str(voter_id)
-        q3 = " WHERE e.election_status = 1;"
-        query2 = q1+q2+q3
 
-        query = query1 + " UNION "+ query2
+        query = f"{q1} UNION {q2};"
 
         result = self.db.query(query)
         return result["all_rows"]
@@ -70,3 +90,13 @@ class Voter(BaseClass):
         }
         self.db.insert_single(table_name, data)
 
+    def check_vote(self,voter_id,election_display_id):
+        election = Elections()
+        election_id = election.get_election_id(election_display_id)
+        query = "select * from votes where user_id = " + str(voter_id) + " and election_id = " + str(election_id) + ";"
+        result = self.db.query(query)
+        print(result)
+        if result["count_row"]==0:
+            return True
+        else:
+            return False

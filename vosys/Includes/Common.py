@@ -12,7 +12,22 @@ class Common:
     tab bar color            = #395472
     tab hover color          = #2c3e50
     tab selected color       = #3498db
+    card background          = #bde4ff
     """
+
+    background_color = "#EAEAEA"
+    label_text_color = "#2e3e55"
+    button_color= "#3498db"
+    button_hover_color = "#2980b9"
+    tab_bar_color = "#395472"
+    tab_hover_color ="#2c3e50"
+    tab_selected_color = "#3498db"
+    card_background =  "#bde4ff"
+
+
+
+
+
     #functions
     @staticmethod
     def new_label(frame_ , text_, font_):

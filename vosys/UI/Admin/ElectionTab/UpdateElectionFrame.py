@@ -12,7 +12,7 @@ class UpdateElectionFrame(tk.Frame):
     def __init__(self,parent,id):
         self.election  = Elections()
 
-
+        self.display_id = id
         self.id = self.election.get_election_id(id)
         print("election frame recived = ",self.id)
 
@@ -185,7 +185,8 @@ class UpdateElectionFrame(tk.Frame):
             condition ="id = "+ str(self.id)
             self.election.update_election(data,condition)
             self.add_election_in_class(self.id)
-
+            self.start_date = start_date
+            self.end_date = end_date
             self.warning_label.config(text ="Updated Successfully...",fg="blue")
 
 
