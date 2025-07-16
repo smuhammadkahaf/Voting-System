@@ -48,7 +48,9 @@ class AvailableElections:
         center_frame.pack(fill="both", expand=True)
 
         rows = self.voter.get_ongoing_elections(self.voter_id)
-        print(rows)
+        if not rows:
+            self.warning_label.config(text = "No Active Elections",fg = "red")
+            return
         Common.generate_table(
             center_frame,
             rows,

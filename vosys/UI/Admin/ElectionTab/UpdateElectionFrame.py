@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from Includes.Common import Common
+from Includes.Emails import Emails
 from Logic.Admin.Elections import  Elections
 from Logic.Admin.Category import Category
 from datetime import datetime
@@ -8,16 +9,18 @@ from UI.Admin.Candiate.CandidateFrame import CandidateFrame
 from Logic.Admin.Candidate import Candidate
 
 
+
 class UpdateElectionFrame(tk.Frame):
     def __init__(self,parent,id):
+        super().__init__(parent, bg="#EAEAEA")
+        self.parent = parent
         self.election  = Elections()
 
         self.display_id = id
         self.id = self.election.get_election_id(id)
         print("election frame recived = ",self.id)
 
-        super().__init__(parent,bg="#EAEAEA")
-        self.parent = parent
+
 
         data = self.election.get_election(self.id)
 
@@ -25,7 +28,6 @@ class UpdateElectionFrame(tk.Frame):
         self.description = Common.unlocker(data["description"])
         self.start_date = data["starting_date"]
         self.end_date = data["ending_date"]
-
 
         self.buildUI()
 
@@ -299,6 +301,7 @@ class UpdateElectionFrame(tk.Frame):
         self.election.update_election(data, condition)
         self.add_election_in_class(self.id)
 
+
         self.status_entry.config(state="normal")
         self.status_entry.delete(0, tk.END)
         self.status_entry.insert(0, "Ongoing")
@@ -330,9 +333,16 @@ class UpdateElectionFrame(tk.Frame):
         self.status_entry.delete(0, tk.END)
         self.status_entry.insert(0, "ended")
         self.status_entry.config(state="readonly")
+        self.send_results()
         self.warning_label.config(text = "Election ended...",fg = "green")
 
 
     def candidates_button_clicked(self):
         Common.clear_content(self.parent)
         CandidateFrame(self.parent,self.id)
+
+
+    def send_results (self):
+        email = Emails()
+        email.result_mail(self.id,self.display_id,self.title)
+

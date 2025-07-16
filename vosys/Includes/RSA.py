@@ -39,12 +39,16 @@ class RSA:
 
     def encrypt_msg(self):
         encrypted_string = ""
+        if not self.__msg:
+            return ""
         for char in self.__msg:
             encrypted_string +=  self.__encrypt_char(char)
         self.__msg = encrypted_string
 
     def decrypt_msg(self):
         decrypted_string = ""
+        if not self.__msg:
+            return ""
         for char in self.__msg:
             decrypted_string += self.__decrypt_char(char)
         self.__msg = decrypted_string

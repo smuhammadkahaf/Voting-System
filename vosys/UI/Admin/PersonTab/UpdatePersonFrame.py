@@ -92,7 +92,6 @@ class updatePersonFrame(tk.Frame):
         self.phone_entry.grid(row=4, column=1, pady=(0, 15), padx=(60, 0))
         self.phone_entry.delete(0, tk.END)
         self.phone_entry.insert(0, self.phone_number)
-        self.phone_entry.config(state="readonly")
 
         # Email Input
         email_label = Common.new_label(center_frame, "Email Address", 16)
@@ -105,7 +104,6 @@ class updatePersonFrame(tk.Frame):
         self.email_entry.grid(row=6, column=0, pady=(0, 15), padx=(60, 0))
         self.email_entry.delete(0, tk.END)
         self.email_entry.insert(0, self.email)
-        self.email_entry.config(state="readonly")
 
         #adding check boxes
         options_frame = tk.Frame(center_frame, bg="#EAEAEA")
@@ -134,8 +132,28 @@ class updatePersonFrame(tk.Frame):
 
 
     def update_person_button_clicked(self):
+
+        CNIC = self.cnic_entry.get()
+        phone_number = self.phone_entry.get()
+        email_address = self.email_entry.get()
+
+        if not phone_number or not email_address:
+            self.warning_label.config(text="All Fields are required", fg="red")
+
+        else:
+            print(CNIC)
+            condition  = f"cnic = '{Common.locker(CNIC)}'"
+            data = {
+                "phone_number": Common.locker(phone_number),
+                "email": Common.locker(email_address)
+            }
+            response = self.user.update_person(data,condition)
+            if response == -1:
+                self.warning_label.config(text = "email already registered",fg="red")
+                return
+
         self.add_person_in_class(self.cnic)
-        self.warning_label.config(text = "Person Categories Updated Successfully",fg = "green")
+        self.warning_label.config(text = "Person Details Updated Successfully",fg = "green")
 
     def add_person_in_class(self,cnic):
         category_object  = Category()
@@ -166,3 +184,30 @@ class updatePersonFrame(tk.Frame):
         condition = "id = " + str(self.id)
         self.user.db.update("users",data,condition)
         self.warning_label.config(text="Key Updated Successfully",fg = "green")
+
+
+    def is_valid_date_format(self,date):
+        # Check total length
+        if len(date) != 10:
+            return False
+
+        # Check hyphens at correct positions
+        if date[4] != '-' or date[7] != '-':
+            return False
+
+        # Check digits and extract year, month, day
+        year_str = date[0:4]
+        month_str = date[5:7]
+        day_str = date[8:10]
+        if not (year_str.isdigit() and month_str.isdigit() and day_str.isdigit()):
+            return False
+        year = int(year_str)
+        month = int(month_str)
+        day = int(day_str)
+
+        # Validate ranges
+        if not (1 <= month <= 12):
+            return False
+        if not (1 <= day <= 31):
+            return False
+        return True

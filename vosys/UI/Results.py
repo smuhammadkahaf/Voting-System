@@ -74,7 +74,7 @@ class Results(tk.Frame):
             self.warning_label.config(text="Election has not launched yet!!!",fg="green")
             return
         results = election.get_result(election_id)
-        Common.generate_table(self.result_frame,results,["candidate_name","affiliations"],hide_columns=["candidate_id"])
+        Common.generate_table(self.result_frame,results,["candidate_name","affiliations"],hide_columns=["candidate_id","email"])
         if election_status !=3:
             self.warning_label.config(text="The election is still ongoing. Results displayed may not reflect the final outcome.",fg="green")
             return

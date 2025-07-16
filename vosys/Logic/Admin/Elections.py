@@ -144,6 +144,7 @@ class Elections(BaseClass):
         query = f"""SELECT 
     ec.id AS candidate_id,
     u.name AS candidate_name,
+    u.email,
     ec.affiliations,
     COUNT(cv.id) AS total_votes
 FROM election_candidates ec

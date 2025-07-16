@@ -2,7 +2,7 @@ from calendar import day_abbr
 
 import mysql.connector
 class Database:
-    def __init__(self,h="localhost",u = "root",p="root",d="vosys",c="utf8mb4"):
+    def __init__(self,h="localhost",u = "vosys_user",p="12345",d="vosys",c="utf8mb4"):
         self.connection = ""
         self.cursor =""
         self.host =h

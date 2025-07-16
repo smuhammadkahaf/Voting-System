@@ -5,6 +5,8 @@ from UI.Admin.CategoryTab.CategoryFrame import CategoryFrame
 from UI.Admin.PersonTab.PersonFrame import PersonFrame
 from UI.Admin.ElectionTab.ElectionFrame import ElectionFrame
 from UI.Admin.Dashboard.DashboardFrame import DashboardFrame
+from UI.Admin.ConfigurationTab.Configuration import Configuration
+
 from UI.Results import Results
 
 
@@ -34,6 +36,7 @@ class AdminPanelUI:
         self.elections = self.add_sidebar_button("Elections", self.show_elections)
         self.category = self.add_sidebar_button("Category", self.show_categories)
         self.results = self.add_sidebar_button("Results", self.show_results)
+        self.email_configuration = self.add_sidebar_button("Configuration", self.show_configuration)
         self.logout = self.add_sidebar_button("Logout", self.logout_clicked)
 
         self.dashboard.config(bg = "#3498db")
@@ -82,6 +85,12 @@ class AdminPanelUI:
         Common.clear_content(self.content)
         Results(self.content,send_to="admin").pack(expand=True, fill="both")
 
+    def show_configuration(self):
+        self.reset_all_tabs_colors()
+        self.email_configuration.config(bg="#3498db")
+        Common.clear_content(self.content)
+        Configuration(self.content).pack(expand=True, fill="both")
+
     def logout_clicked(self):
         Common.clear_content(self.root)
         from UI.Voter.EnrtyPoint import EntryPoint
@@ -95,6 +104,7 @@ class AdminPanelUI:
         self.elections.config(bg="#395472")
         self.category.config(bg="#395472")
         self.results.config(bg="#395472")
+        self.email_configuration.config(bg="#395472")
 
 
 

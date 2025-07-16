@@ -79,7 +79,7 @@ class Common:
         return btn
 
     @staticmethod
-    def new_tab(frame_,text_,command_=None,size=16,width =9):
+    def new_tab(frame_,text_,command_=None,size=14,width =11):
         btn = tk.Button(
             frame_,
             text=text_,

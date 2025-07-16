@@ -19,11 +19,13 @@ class Person(BaseClass):
         key = Common.locker(key)
 
         cnic_query= "SELECT * FROM users WHERE cnic = '"+cnic+"';"
-        email_query= "SELECT * FROM users WHERE email = '" + email + "';"
+
         cnic_result = self.db.query(cnic_query)
-        email_result = self.db.query(email_query)
         if cnic_result["count_row"] >=1:
             return 0# cnic already exist
+
+        email_query = "SELECT * FROM users WHERE email = '" + email + "';"
+        email_result = self.db.query(email_query)
 
         if email_result["count_row"] >=1:
             return 1# email already exist
@@ -96,4 +98,11 @@ class Person(BaseClass):
         results = results["first_row"][0]["persons"]
 
         return results
-        
+
+    def update_person(self,data,condition):
+        email_query = "SELECT * FROM users WHERE email = '" + data["email"] + "';"
+        email_result = self.db.query(email_query)
+
+        if email_result["count_row"] >= 1:
+            return 1  # email already exist
+        self.db.update("users",data,condition)
