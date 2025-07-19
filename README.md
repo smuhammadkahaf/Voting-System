@@ -1,9 +1,12 @@
 # VOSYS - Secure Voting System
 
+## Project Overview
+VOSYS is a secure, modular voting system designed to ensure privacy, integrity, and ease of use for both administrators and voters. It leverages strong encryption, multi-factor authentication, and automated result sharing to deliver a robust election platform.
+
 ## Highlights
 
 - **Entire database is encrypted using the RSA cipher.**
-- **Uses MySQL as the database backend.**
+- **Uses MySQL as the database.**
 - **Provides a user-friendly interface (Tkinter-based GUI).**
 - **Validates each person using TOTP (Time-Based One-Time Password).**
 - **Automatically shares election results via email.**
@@ -12,8 +15,7 @@
 
 ---
 
-## Project Overview
-VOSYS is a secure, modular voting system designed to ensure privacy, integrity, and ease of use for both administrators and voters. It leverages strong encryption, multi-factor authentication, and automated result sharing to deliver a robust election platform.
+
 
 ## Features
 - **Admin & Voter Panels:** Separate interfaces for administrators and voters.
