@@ -93,7 +93,7 @@ class AdminPanelUI:
 
     def logout_clicked(self):
         Common.clear_content(self.root)
-        from UI.Voter.EnrtyPoint import EntryPoint
+        from UI.Voter.EntryPoint import EntryPoint
         EntryPoint(self.root)
 
 

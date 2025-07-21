@@ -11,6 +11,22 @@ class Configuration(tk.Frame):
         details = email.get_email_config()
 
 
+        if  not details:
+            email = ""
+            port = ""
+            password = ""
+            smtp = ""
+
+        else:
+
+
+            email = Common.unlocker(details["sender_email"])
+            port = Common.unlocker(details["port"])
+            password = Common.unlocker(details["password"])
+            smtp = Common.unlocker(details["smtp"])
+
+
+
 
         # Title
         header = tk.Frame(self.parent, bg="#EAEAEA", width=200)
@@ -26,8 +42,7 @@ class Configuration(tk.Frame):
         center_frame = tk.Frame(self.parent, bg=Common.background_color)
         center_frame.pack()
 
-        email = details["sender_email"]
-        email = Common.unlocker(email)
+
         sender_mail_label = Common.new_label(center_frame, "sender Email*", 16)
         sender_mail_label.grid(row=0, column=0, sticky="w", pady=(0, 5))
         self.sender_mail_entry = tk.Entry(
@@ -43,7 +58,7 @@ class Configuration(tk.Frame):
         self.sender_mail_entry.insert(0, email)
 
 
-        port = Common.unlocker(details["port"])
+
         port_label = Common.new_label(center_frame, "port*", 16)
         port_label.grid(row=2, column=0, sticky="w", pady=(0, 5))
         self.port_entry = tk.Entry(
@@ -58,7 +73,6 @@ class Configuration(tk.Frame):
         self.port_entry.delete(0, tk.END)
         self.port_entry.insert(0, port)
 
-        password = Common.unlocker(details["password"])
         password_label = Common.new_label(center_frame, "Password*", 16)
         password_label.grid(row=4, column=0, sticky="w", pady=(0, 5))
         self.password_entry = tk.Entry(
@@ -73,7 +87,6 @@ class Configuration(tk.Frame):
         self.password_entry.delete(0, tk.END)
         self.password_entry.insert(0, password)
 
-        smtp = Common.unlocker(details["smtp"])
 
         smtp_label = Common.new_label(center_frame, "SMTP*", 16)
         smtp_label.grid(row=6, column=0, sticky="w", pady=(0, 5))

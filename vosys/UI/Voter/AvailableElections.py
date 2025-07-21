@@ -65,7 +65,7 @@ class AvailableElections:
 
 
     def back_button_clicked(self):
-        from UI.Voter.EnrtyPoint import EntryPoint
+        from UI.Voter.EntryPoint import EntryPoint
         Common.clear_content(self.root)
         EntryPoint(self.root)
 

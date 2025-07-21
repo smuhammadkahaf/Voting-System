@@ -11,7 +11,7 @@ class Candidate(BaseClass):
 
     def check_existence(self,person_id,election_id):
         query= "SELECT * FROM Election_candidates WHERE user_id = " + str(person_id) + " AND election_id = " + str(election_id) + ";"
-        result = self.db.query(query)
+
 
         result = self.db.query(query)
         if result["count_row"] != 0 :

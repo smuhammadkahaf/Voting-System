@@ -253,6 +253,7 @@ class UpdateElectionFrame(tk.Frame):
         self.status_entry.delete(0, tk.END)
         self.status_entry.insert(0, "On Going")
         self.status_entry.config(state="readonly")
+        self.warning_label.config(text="Election has been launched",fg="green")
 
     def pause_election_button_clicked(self):
         if self.election.get_election_status(self.id) == 0:

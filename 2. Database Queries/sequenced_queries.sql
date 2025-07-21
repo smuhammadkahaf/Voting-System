@@ -198,10 +198,9 @@ where ec.election_id = 4;
 SELECT * FROM Election_candidates where election_id = 7;
 
 #section 9
-CREATE USER 'vosys_user'@'192.168.148.52' IDENTIFIED WITH mysql_native_password BY '12345';
-GRANT ALL PRIVILEGES ON vosys.* TO 'vosys_user'@'192.168.148.52';
+CREATE USER 'vosys_user'@'%' IDENTIFIED WITH mysql_native_password BY '12345';
+GRANT ALL PRIVILEGES ON vosys.* TO 'vosys_user'@'%';
 FLUSH PRIVILEGES;
-DROP USER 'vosys_user'@'192.168.148.52';
 
 
 SELECT e.display_id AS election_id, e.title, e.starting_date, e.ending_date,CASE WHEN v.user_id IS NOT NULL THEN 'Voted' ELSE 'Not Voted' END AS status FROM elections e
@@ -236,4 +235,56 @@ Select * from elections;
 SELECT * FROM candidate_votes;
 SELECT * FROM votes;
 
+SELECT 
+    e.display_id AS id,
+    e.title AS Title,
+    e.starting_date AS Start_Date,
+    e.ending_date AS End_Date,
+    CASE 
+        WHEN e.election_status = 0 THEN 'Not Launched'
+        WHEN e.election_status = 1 THEN 'On Going'
+        WHEN e.election_status = 2 THEN 'Paused'
+        WHEN e.election_status = 3 THEN 'Ended'
+        ELSE 'Unknown'
+    END AS Status
+FROM elections e
+ORDER BY e.register_date DESC;
 
+SELECT * FROM elections where display_id = 'kod-17';
+SELECT 
+    ec.id AS candidate_id,
+    u.name AS candidate_name,
+    ec.affiliations,
+    COUNT(cv.id) AS total_votes
+FROM election_candidates ec
+INNER JOIN users u ON ec.user_id = u.id
+LEFT JOIN candidate_votes cv ON ec.id = cv.candidate_id AND cv.election_id = ec.election_id
+WHERE ec.election_id = 17
+GROUP BY ec.id, u.name, ec.affiliations
+ORDER BY total_votes DESC;
+
+
+select count(*) as persons from users;
+select count(*) as elections from elections;
+select count(*) as categories from categories;
+select count(*) as elections from elections where election_status = 1;
+select count(*) as elections from elections where election_status = 2;
+
+
+-- section 11
+use vosys;
+create TABLE email_config (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_email  VARCHAR(256),
+	port VARCHAR(5),
+    password varchar(254)
+);
+alter TABLE email_config
+add column 
+	smtp varchar(254);
+
+select * from email_config;
+select sender_email,port,password from email_config;
+
+
+select * from users;

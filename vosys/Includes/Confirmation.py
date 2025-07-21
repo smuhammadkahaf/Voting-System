@@ -37,7 +37,7 @@ class Confirmation(tk.Toplevel):
         # yes_button = tk.Button(button_frame, text="Yes", width=10, command=lambda: self._set_result(1))
         yes_button.pack(side="left", padx=10)
 
-        no_button = Common.new_button(button_frame,"N0",lambda: (self._set_result(1)),16,10)
+        no_button = Common.new_button(button_frame,"No",lambda: (self._set_result(0)),16,10)
         no_button.pack(side="left", padx=10)
 
     def _set_result(self, value):

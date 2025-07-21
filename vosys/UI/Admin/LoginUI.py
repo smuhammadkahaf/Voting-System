@@ -87,6 +87,6 @@ class LoginUI:
                 self.warning_label.config(text="Incorrect username or password",fg="red")
 
     def back_button_clicked(self):
-        from UI.Voter.EnrtyPoint import EntryPoint
+        from UI.Voter.EntryPoint import EntryPoint
         Common.clear_content(self.root)
         EntryPoint(self.root)

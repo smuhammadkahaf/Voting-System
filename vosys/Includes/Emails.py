@@ -13,25 +13,28 @@ class Emails(BaseClass):
         self.ensure_db()
 
     def send_email(self,receiver,subject,message, html = None):
-        email_config = self.get_email_config()
-        sender = Common.unlocker(email_config["sender_email"])
-        port =int(Common.unlocker(email_config["port"]))
-        password = Common.unlocker(email_config["password"])
-        smtp = Common.unlocker(email_config["smtp"])
+        try:
 
+            email_config = self.get_email_config()
+            sender = Common.unlocker(email_config["sender_email"])
+            port =int(Common.unlocker(email_config["port"]))
+            password = Common.unlocker(email_config["password"])
+            smtp = Common.unlocker(email_config["smtp"])
+            msg = EmailMessage()
+            msg['Subject'] = subject
+            msg['From'] = sender
+            msg['To'] = receiver
+            msg.set_content(message)
 
-        msg = EmailMessage()
-        msg['Subject'] = subject
-        msg['From'] = sender
-        msg['To'] =receiver
-        msg.set_content(message)
+            if html:
+                msg.add_alternative(html, subtype='html')
 
-        if html:
-            msg.add_alternative(html, subtype='html')
+            with smtplib.SMTP_SSL(smtp, port )as smtp:
+                smtp.login(sender, password )
+                smtp.send_message(msg)
+        except:
+            pass
 
-        with smtplib.SMTP_SSL(smtp, port )as smtp:
-            smtp.login(sender, password )
-            smtp.send_message(msg)
 
 
     def change_configuration(self,sender_email,port,password,smtp):
@@ -53,7 +56,7 @@ class Emails(BaseClass):
     def get_email_config(self):
         query = "select sender_email,port,password,smtp from email_config;"
         results = self.db.query(query)
-        print(results)
+
         results = results["first_row"][0]
         return results
 
