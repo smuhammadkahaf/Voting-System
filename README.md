@@ -34,7 +34,7 @@ VOSYS is a secure, modular voting system designed to ensure privacy, integrity, 
 
 ## Setup Instructions
 1. **Install Python 3.x**
-2. **Install MySQL and create the required database/tables** (see `2. Database Queries/sequenced_queries.sql`)
+2. **Install MySQL and create the required database/tables** (see `2. Database Queries/DDL.sql`)
 3. **Install required Python packages:**
    - `pyotp`, `qrcode`, `Pillow`, `mysql-connector-python` (or similar)
 4. **Run the application:**
